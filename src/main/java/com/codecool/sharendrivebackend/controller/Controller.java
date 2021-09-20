@@ -1,13 +1,13 @@
-package controller;
+package com.codecool.sharendrivebackend.controller;
 
-import model.Car;
-import model.CarType;
+import com.codecool.sharendrivebackend.model.car.Car;
+import com.codecool.sharendrivebackend.model.car.CarType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import service.CarService;
+import com.codecool.sharendrivebackend.service.CarService;
 
 import java.time.LocalDate;
 import java.util.List;
