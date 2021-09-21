@@ -1,5 +1,6 @@
 package com.codecool.sharendrivebackend.model.customer;
 
+import com.codecool.sharendrivebackend.model.address.Address;
 import lombok.*;
 import com.codecool.sharendrivebackend.model.car.Car;
 
@@ -25,4 +26,7 @@ public class Customer {
     private String firstName;
 
     private String lastName;
+
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.PERSIST)
+    private Address address;
 }
