@@ -26,11 +26,6 @@ public class Car {
     @Column(unique = true)
     private String licencePlate;
 
-//    @ManyToMany(mappedBy = "car", cascade = CascadeType.PERSIST)
-//    @Singular
-//    @EqualsAndHashCode.Exclude
-//    private List<RentCalendar> calendars;
-
     @Enumerated
     private FuelType fuelType;
 
