@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Component
 public class CarService {
 
-    private static final Set<String> VALID_FILTER_CRITERIA = new HashSet<>(List.of("brand", "plate", "type", "price"));
+//    private static final Set<String> VALID_FILTER_CRITERIA = new HashSet<>(List.of("brand", "plate", "type", "price"));
 
     private final CarRepository carRepository;
 
@@ -33,27 +33,62 @@ public class CarService {
         return 0;
     } //TODO: think about location for this method
 
-    public List<Car> getAvailableCarsByFilter(Map<String, String> params) {
-        Map<String, List<String>> checkedParams = createCheckedParamMap(params);
-        return carRepository.findCarsByCriteria(checkedParams);
-    }
+//    public List<Car> getAvailableCarsByFilter(Map<String, String> params) {
+//        Map<String, List<String>> checkedParams = createCheckedParamMap(params);
+//        return carRepository.findCarsByCriteria(checkedParams);
+//    }
 
     private Map<String, List<String>> createCheckedParamMap(Map<String, String> params) {
         Map<String, List<String>> checkedParams = new HashMap<>();
-
         for(String param : params.keySet()){
-            if(isCriteriaFilterCorrect(param)){
+//            if(isCriteriaFilterCorrect(param)){
                 List<String> values = Arrays.stream(params.get(param).split(","))
                     .distinct()
                     .collect(Collectors.toList());
-                checkedParams.put(param, values);
-            }
+                checkedParams.put(param.toLowerCase(), values);
+//            }
         }
         return checkedParams;
     }
 
-    private boolean isCriteriaFilterCorrect(String param) {
-        return VALID_FILTER_CRITERIA.contains(param.toLowerCase());
+//    private boolean isCriteriaFilterCorrect(String param) {
+//        return VALID_FILTER_CRITERIA.contains(param.toLowerCase());
+//    }
+
+    public List<Car> getFilteredCars1(Map<String, String> params) {
+        Map<String, List<String>> checkedParams = createCheckedParamMap(params);
+        return carRepository.findCarsByCriteria1(checkedParams);
     }
 
+    public List<Car> getFilteredCars2(Map<String, String> params){
+        List<Car> foundCars = new ArrayList<>();
+        Map<String, List<String>> checkedParams = createCheckedParamMap(params);
+        for (String key : params.keySet()) {
+            switch (key) {
+                case "brand":
+                    foundCars.addAll(carRepository.findCarsByBrand(checkedParams.get(key)));
+                    break;
+                case "price":
+                    int maxPrice = Integer.parseInt((checkedParams.get(key)).get(0));
+                    foundCars.addAll(carRepository.findByPriceLessThanEqual(maxPrice));
+                    break;
+                case "seat_number":
+                    int minSeatNumber = Integer.parseInt((checkedParams.get(key)).get(0));
+                    foundCars.addAll(carRepository.findBySeatNumberGreaterThanEqual(minSeatNumber));
+                    break;
+            }
+        }
+        return getCommonElements(foundCars);
+    }
+
+    private List<Car> getCommonElements(List<Car> allCars) {
+        List<Car> commonCars = new ArrayList<>();
+        Set<Car> uniqueCars = new HashSet<>();
+        for (Car car : allCars) {
+            if (!uniqueCars.add(car)) {
+                commonCars.add(car);
+            }
+        }
+        return allCars.equals(new ArrayList<>(uniqueCars)) ? allCars : commonCars;
+    }
 }
