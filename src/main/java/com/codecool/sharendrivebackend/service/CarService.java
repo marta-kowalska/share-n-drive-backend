@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class CarService {
+
+    private static final Set<String> VALID_FILTER_CRITERIA = new HashSet<>(List.of("brand", "plate", "type", "price"));
 
     private final CarRepository carRepository;
 
@@ -28,6 +30,25 @@ public class CarService {
     } //TODO: think about location for this method
 
     public List<Car> getAvailableCarsByFilter(Map<String, String> params) {
-        return carRepository.findCarsByCriteria(params);
+        Map<String, List<String>> checkedParams = createCheckedParamMap(params);
+        return carRepository.findCarsByCriteria(checkedParams);
+    }
+
+    private Map<String, List<String>> createCheckedParamMap(Map<String, String> params) {
+        Map<String, List<String>> checkedParams = new HashMap<>();
+
+        for(String param : params.keySet()){
+            if(isCriteriaFilterCorrect(param)){
+                List<String> values = Arrays.stream(params.get(param).split(","))
+                    .distinct()
+                    .collect(Collectors.toList());
+                checkedParams.put(param, values);
+            }
+        }
+        return checkedParams;
+    }
+
+    private boolean isCriteriaFilterCorrect(String param) {
+        return VALID_FILTER_CRITERIA.contains(param.toLowerCase());
     }
 }
