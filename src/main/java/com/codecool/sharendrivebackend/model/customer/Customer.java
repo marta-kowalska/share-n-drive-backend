@@ -1,5 +1,6 @@
 package com.codecool.sharendrivebackend.model.customer;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import com.codecool.sharendrivebackend.model.car.Car;
 
@@ -11,6 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
+@JsonIgnoreProperties("cars")
 public class Customer {
 
     @Id
