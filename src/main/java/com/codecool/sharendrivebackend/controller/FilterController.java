@@ -31,7 +31,7 @@ public class FilterController {
 
     @RequestMapping(value="/filter", method = RequestMethod.GET)
     public List<Car> getParams(@RequestParam Map<String, String> params ) {
-        return carService.getAvailableCarsByFilter(params);
+        return carService.getFilteredCars1(params);
     }
 
 
