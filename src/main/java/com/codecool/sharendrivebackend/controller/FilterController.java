@@ -24,6 +24,11 @@ public class FilterController {
         return carService.getFeaturedCars();
     }
 
+    @GetMapping("/filter/all")
+    public List<Car> getAllCars() {
+        return carService.getAllCars();
+    }
+
     @RequestMapping(value="/filter", method = RequestMethod.GET)
     public List<Car> getParams(@RequestParam Map<String, String> params ) {
         return carService.getAvailableCarsByFilter(params);

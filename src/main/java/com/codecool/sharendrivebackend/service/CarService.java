@@ -25,6 +25,10 @@ public class CarService {
         return null;
     }
 
+    public List<Car> getAllCars() {
+        return carRepository.findAll();
+    }
+
     public int calculatePriceForRentTime(LocalDate from, LocalDate to, Car car){
         return 0;
     } //TODO: think about location for this method
@@ -51,4 +55,5 @@ public class CarService {
     private boolean isCriteriaFilterCorrect(String param) {
         return VALID_FILTER_CRITERIA.contains(param.toLowerCase());
     }
+
 }
