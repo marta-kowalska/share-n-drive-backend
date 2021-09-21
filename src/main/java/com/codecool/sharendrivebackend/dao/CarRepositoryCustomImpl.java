@@ -17,16 +17,17 @@ public class CarRepositoryCustomImpl implements CarRepositoryCustom{
     private EntityManager entityManager;
 
     @Override
-    public List<Car> findCarsByCriteria(Map<String, String> params) {
+    public List<Car> findCarsByCriteria(Map<String, List<String>> params) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Car> query = cb.createQuery(Car.class);
         Root<Car> car = query.from(Car.class);
 
         List<Predicate> predicates = new ArrayList<>();
         for (String param : params.keySet()) {
-            // TODO make sure it works when there is more values for one key
             Path<String> path = car.get(param);
-            predicates.add(cb.like(path, params.get(param)));
+            for(String value : params.get(param)){
+                predicates.add(cb.like(path, value));
+            }
         }
         query.select(car)
             .where(cb.or(predicates.toArray(new Predicate[predicates.size()])));
