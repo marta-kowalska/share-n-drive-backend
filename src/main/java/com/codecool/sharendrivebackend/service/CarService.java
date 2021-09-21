@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class CarService {
@@ -14,15 +15,11 @@ public class CarService {
         return null;
     }
 
-    public List<Car> getAvailableCarsByDate(LocalDate from, LocalDate to) {
-        return null;
-    }
-
-    public List<Car> getAvailableCarsByType(List<CarType> types) {
-        return null;
-    }
-
     public int calculatePriceForRentTime(LocalDate from, LocalDate to, Car car){
         return 0;
     } //TODO: think about location for this method
+
+    public List<Car> getAvailableCarsByFilter(Map<String, String> params) {
+        return null;
+    }
 }
