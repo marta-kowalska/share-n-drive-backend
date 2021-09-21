@@ -8,4 +8,6 @@ import java.util.Map;
 
 public interface CarRepositoryCustom {
         List<Car> findCarsByCriteria(Map<String, List<String>> params);
+
+        List<Car> findCarsByBrand(List<String> brands);
 }

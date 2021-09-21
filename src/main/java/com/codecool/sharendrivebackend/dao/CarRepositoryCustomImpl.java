@@ -25,6 +25,7 @@ public class CarRepositoryCustomImpl implements CarRepositoryCustom{
         List<Predicate> predicates = new ArrayList<>();
         for (String param : params.keySet()) {
             Path<String> path = car.get(param);
+            // TODO works only for strings, how to make it work for ints, date and enums?
             for(String value : params.get(param)){
                 predicates.add(cb.like(path, value));
             }
@@ -32,6 +33,24 @@ public class CarRepositoryCustomImpl implements CarRepositoryCustom{
         query.select(car)
             .where(cb.or(predicates.toArray(new Predicate[predicates.size()])));
 
+        return entityManager.createQuery(query)
+            .getResultList();
+    }
+
+    @Override
+    public List<Car> findCarsByBrand(List<String> brands) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Car> query = cb.createQuery(Car.class);
+        Root<Car> car = query.from(Car.class);
+
+        Path<String> path = car.get("brand");
+
+        List<Predicate> predicates = new ArrayList<>();
+        for (String brand : brands) {
+            predicates.add(cb.like(path, brand));
+        }
+        query.select(car)
+            .where(cb.or(predicates.toArray(new Predicate[predicates.size()])));
         return entityManager.createQuery(query)
             .getResultList();
     }
