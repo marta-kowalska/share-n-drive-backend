@@ -11,6 +11,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityManager;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
@@ -34,5 +36,26 @@ class CarRepositoryTest {
 
         carRepository.save(volkswagen);
         assertEquals(1, carRepository.findAll().size());
+    }
+
+    @Test
+    public void theLicencePlatesAreUniqueForEachCar() {
+        Car car1 = Car.builder()
+                .seatNumber(5)
+                .fuelType(FuelType.ELECTRIC)
+                .brand("Volkswagen")
+                .licencePlate("NNN-111")
+                .build();
+
+        carRepository.save(car1);
+
+        Car car2 = Car.builder()
+                .seatNumber(2)
+                .fuelType(FuelType.DIESEL)
+                .brand("BMW")
+                .licencePlate("NOM-111")
+                .build();
+
+        carRepository.saveAndFlush(car2);
     }
 }
