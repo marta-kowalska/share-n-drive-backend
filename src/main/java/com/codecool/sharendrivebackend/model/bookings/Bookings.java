@@ -1,4 +1,4 @@
-package com.codecool.sharendrivebackend.model.car;
+package com.codecool.sharendrivebackend.model.bookings;
 
 import lombok.*;
 
