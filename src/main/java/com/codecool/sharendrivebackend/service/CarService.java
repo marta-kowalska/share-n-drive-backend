@@ -44,9 +44,16 @@ public class CarService {
                 List<String> values = Arrays.stream(params.get(param).split(","))
                     .distinct()
                     .collect(Collectors.toList());
-                checkedParams.put(param.toLowerCase(), values);
+                checkedParams.put(param, values);
         }
+        checkFromToParams(checkedParams);
         return checkedParams;
+    }
+
+    private void checkFromToParams(Map<String, List<String>> checkedParams) {
+        if(checkedParams.containsKey("from") && !checkedParams.containsKey("to")){
+            checkedParams.remove("from");
+        }
     }
 
     public List<Car> getFilteredCars1(Map<String, String> params) {
@@ -66,7 +73,7 @@ public class CarService {
                     int maxPrice = Integer.parseInt((checkedParams.get(key)).get(0));
                     foundCars.addAll(carRepository.findByPriceLessThanEqual(maxPrice));
                     break;
-                case "seat_number":
+                case "seatNumber":
                     int minSeatNumber = Integer.parseInt((checkedParams.get(key)).get(0));
                     foundCars.addAll(carRepository.findBySeatNumberGreaterThanEqual(minSeatNumber));
                     break;
@@ -75,8 +82,11 @@ public class CarService {
                     LocalDate to = LocalDate.parse(params.get("to"), formatter);
                     foundCars.addAll(bookingsRepository.getCarsByDates(from, to));
                     break;
-                case "fuel_type":
-                    foundCars.addAll(carRepository.findCarsByFuelType(checkedParams.get("fuel_type")));
+                case "fuelType":
+                    foundCars.addAll(carRepository.findCarsByFuelType(checkedParams.get(key)));
+                    break;
+                case "bodyType":
+                    foundCars.addAll(carRepository.findCarsByBodyType(checkedParams.get(key)));
                     break;
             }
         }
