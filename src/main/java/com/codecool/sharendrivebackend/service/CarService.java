@@ -67,7 +67,10 @@ public class CarService {
         for (String key : params.keySet()) {
             switch (key) {
                 case "brand":
-                    foundCars.addAll(carRepository.findCarsByBrand(checkedParams.get(key)));
+                    foundCars.addAll(carRepository.findCarsByStringValue(checkedParams.get(key), "brand"));
+                    break;
+                case "color":
+                    foundCars.addAll(carRepository.findCarsByStringValue(checkedParams.get(key), "color"));
                     break;
                 case "price":
                     int maxPrice = Integer.parseInt((checkedParams.get(key)).get(0));
