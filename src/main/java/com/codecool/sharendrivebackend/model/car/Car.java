@@ -34,7 +34,6 @@ public class Car {
     @Enumerated(EnumType.STRING)
     private FuelType fuelType;
 
-    @Transient
     private int price;
 
     private String brand;
