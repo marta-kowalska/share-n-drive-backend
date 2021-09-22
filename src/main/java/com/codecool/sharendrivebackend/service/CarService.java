@@ -106,4 +106,8 @@ public class CarService {
 
         return allCars.equals(uniqueCarsList) ? allCars : commonCars;
     }
+
+    public void saveCarToRent(Car car) {
+        carRepository.save(car);
+    }
 }
