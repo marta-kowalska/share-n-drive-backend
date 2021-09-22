@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -22,6 +23,7 @@ public class Car {
 
     private int seatNumber;
 
+    @Enumerated(EnumType.STRING)
     private String color;
 
     @Enumerated
@@ -30,14 +32,10 @@ public class Car {
     @Column(unique = true)
     private String licencePlate;
 
-//    @ManyToMany(mappedBy = "car", cascade = CascadeType.PERSIST)
-//    @Singular
-//    @EqualsAndHashCode.Exclude
-//    private List<RentCalendar> calendars;
-
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private FuelType fuelType;
 
+    @Transient
     private int price;
 
     private String brand;

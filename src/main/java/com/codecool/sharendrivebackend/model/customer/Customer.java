@@ -1,8 +1,8 @@
 package com.codecool.sharendrivebackend.model.customer;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import com.codecool.sharendrivebackend.model.car.Car;
+import com.codecool.sharendrivebackend.model.address.Address;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -26,4 +26,8 @@ public class Customer {
     private String firstName;
 
     private String lastName;
+
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.PERSIST)
+    @EqualsAndHashCode.Exclude
+    private Address address;
 }
