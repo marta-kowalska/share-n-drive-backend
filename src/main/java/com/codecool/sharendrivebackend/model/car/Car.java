@@ -40,10 +40,4 @@ public class Car {
     @EqualsAndHashCode.Exclude
     private Customer customer;
 
-    @ManyToOne
-    private Customer whichCustomerRent;
-
-    @ManyToMany
-    @EqualsAndHashCode.Exclude
-    private List<RentTime> rentTimes;
 }
