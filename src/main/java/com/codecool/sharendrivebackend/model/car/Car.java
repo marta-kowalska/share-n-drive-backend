@@ -23,10 +23,9 @@ public class Car {
 
     private int seatNumber;
 
-    @Enumerated(EnumType.STRING)
     private String color;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private BodyType bodyType;
 
     @Column(unique = true)
