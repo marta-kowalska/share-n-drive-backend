@@ -10,8 +10,6 @@ import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Component
 public class CarRepositoryCustomImpl implements CarRepositoryCustom {
@@ -30,6 +28,24 @@ public class CarRepositoryCustomImpl implements CarRepositoryCustom {
         List<Predicate> predicates = new ArrayList<>();
         for (String brand : brands) {
             predicates.add(cb.like(path, brand));
+        }
+        query.select(car)
+            .where(cb.or(predicates.toArray(new Predicate[predicates.size()])));
+        return entityManager.createQuery(query)
+            .getResultList();
+    }
+
+    @Override
+    public List<Car> findCarsByFuelType(List<String> fuelTypes) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Car> query = cb.createQuery(Car.class);
+        Root<Car> car = query.from(Car.class);
+
+        Path<FuelType> path = car.get("fuelType");
+
+        List<Predicate> predicates = new ArrayList<>();
+        for (String type : fuelTypes) {
+            predicates.add(cb.equal(path, FuelType.getTypeByName(type)));
         }
         query.select(car)
             .where(cb.or(predicates.toArray(new Predicate[predicates.size()])));

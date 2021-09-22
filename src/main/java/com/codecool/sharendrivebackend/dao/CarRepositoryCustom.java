@@ -11,4 +11,6 @@ public interface CarRepositoryCustom {
         List<Car> findCarsByBrand(List<String> brands);
 
         List<Car> findCarsByCriteria1(Map<String, List<String>> params);
+
+        List<Car> findCarsByFuelType(List<String> fuelTypes);
 }
