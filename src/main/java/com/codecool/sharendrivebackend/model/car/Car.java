@@ -4,6 +4,7 @@ import com.codecool.sharendrivebackend.model.customer.Customer;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -20,15 +21,16 @@ public class Car {
 
     private int seatNumber;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private BodyType bodyType;
 
     @Column(unique = true)
     private String licencePlate;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private FuelType fuelType;
 
+    @Transient
     private int price;
 
     private String brand;
@@ -38,4 +40,10 @@ public class Car {
     @EqualsAndHashCode.Exclude
     private Customer customer;
 
+    @ManyToOne
+    private Customer whichCustomerRent;
+
+    @ManyToMany
+    @EqualsAndHashCode.Exclude
+    private List<RentTime> rentTimes;
 }
