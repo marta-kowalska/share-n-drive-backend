@@ -1,6 +1,7 @@
 package com.codecool.sharendrivebackend.model.car;
 
 import com.codecool.sharendrivebackend.model.customer.Customer;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
+@JsonIgnoreProperties({"customer", "licencePlate"})
 public class Car {
     @Id
     @GeneratedValue
@@ -19,6 +21,8 @@ public class Car {
     private CarType carType;
 
     private int seatNumber;
+
+    private String color;
 
     @Enumerated
     private BodyType bodyType;
