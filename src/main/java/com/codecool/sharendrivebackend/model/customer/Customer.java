@@ -27,6 +27,12 @@ public class Customer {
 
     private String lastName;
 
+    @OneToMany(mappedBy = "whichCustomerRent", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @Singular
+    @EqualsAndHashCode.Exclude
+    private Set<Car> rentedCars;
+
     @OneToOne(mappedBy = "customer", cascade = CascadeType.PERSIST)
+    @EqualsAndHashCode.Exclude
     private Address address;
 }
