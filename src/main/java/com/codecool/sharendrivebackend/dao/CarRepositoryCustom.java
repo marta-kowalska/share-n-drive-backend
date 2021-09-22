@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface CarRepositoryCustom {
 
-        List<Car> findCarsByBrand(List<String> brands);
+        List<Car> findCarsByStringValue(List<String> values, String paramName);
 
         List<Car> findCarsByCriteria1(Map<String, List<String>> params);
 
