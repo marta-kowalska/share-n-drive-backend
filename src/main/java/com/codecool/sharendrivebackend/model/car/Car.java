@@ -1,6 +1,7 @@
 package com.codecool.sharendrivebackend.model.car;
 
 import com.codecool.sharendrivebackend.model.customer.Customer;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
+@JsonIgnoreProperties({"customer", "licencePlate"})
 public class Car {
     @Id
     @GeneratedValue
@@ -21,6 +23,8 @@ public class Car {
 
     private int seatNumber;
 
+    private String color;
+
     @Enumerated(EnumType.STRING)
     private BodyType bodyType;
 
@@ -30,7 +34,6 @@ public class Car {
     @Enumerated(EnumType.STRING)
     private FuelType fuelType;
 
-    @Transient
     private int price;
 
     private String brand;
@@ -40,10 +43,4 @@ public class Car {
     @EqualsAndHashCode.Exclude
     private Customer customer;
 
-    @ManyToOne
-    private Customer whichCustomerRent;
-
-    @ManyToMany
-    @EqualsAndHashCode.Exclude
-    private List<RentTime> rentTimes;
 }

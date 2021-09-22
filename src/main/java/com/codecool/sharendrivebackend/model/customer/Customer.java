@@ -1,8 +1,8 @@
 package com.codecool.sharendrivebackend.model.customer;
 
-import com.codecool.sharendrivebackend.model.address.Address;
 import lombok.*;
 import com.codecool.sharendrivebackend.model.car.Car;
+import com.codecool.sharendrivebackend.model.address.Address;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -26,11 +26,6 @@ public class Customer {
     private String firstName;
 
     private String lastName;
-
-    @OneToMany(mappedBy = "whichCustomerRent", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    @Singular
-    @EqualsAndHashCode.Exclude
-    private Set<Car> rentedCars;
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.PERSIST)
     @EqualsAndHashCode.Exclude

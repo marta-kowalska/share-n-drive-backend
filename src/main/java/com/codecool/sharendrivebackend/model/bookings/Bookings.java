@@ -1,4 +1,4 @@
-package com.codecool.sharendrivebackend.model.car;
+package com.codecool.sharendrivebackend.model.bookings;
 
 import lombok.*;
 
@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-public class RentTime {
+public class Bookings {
 
     @Id
     @GeneratedValue
@@ -21,7 +21,7 @@ public class RentTime {
 
     private LocalDate rentTo;
 
-    @ManyToMany(mappedBy = "rentTimes", cascade = CascadeType.PERSIST)
-    @Singular
-    private List<Car> cars;
+    private Long customerId;
+
+    private Long carId;
 }
