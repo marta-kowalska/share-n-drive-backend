@@ -84,7 +84,6 @@ public class ShareNDriveBackendApplication {
                     .address(budapest1)
                     .car(volkswagen)
                     .car(volkswagenElectric)
-                    .rentedCar(bmw)
                     .build();
 
             Customer two = Customer.builder()
@@ -93,19 +92,14 @@ public class ShareNDriveBackendApplication {
                     .address(budapest2)
                     .car(mercedes)
                     .car(bmw)
-                    .rentedCar(volkswagen)
-                    .rentedCar(volkswagenElectric)
                     .build();
 
             budapest1.setCustomer(one);
             budapest2.setCustomer(two);
 
             volkswagen.setCustomer(one);
-            volkswagen.setWhichCustomerRent(two);
             volkswagenElectric.setCustomer(one);
-            volkswagenElectric.setWhichCustomerRent(two);
             bmw.setCustomer(two);
-            bmw.setWhichCustomerRent(one);
             mercedes.setCustomer(two);
 
             customerRepository.saveAll(Arrays.asList(one, two));
