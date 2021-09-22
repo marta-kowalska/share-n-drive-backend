@@ -12,7 +12,6 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@JsonIgnoreProperties("cars")
 public class Customer {
 
     @Id
