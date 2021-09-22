@@ -9,13 +9,14 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/share-n-drive")
-public class FilterController {
+public class CarController {
 
     private final CarService carService;
 
     @Autowired
-    public FilterController(CarService carService){
+    public CarController(CarService carService){
         this.carService = carService;
     }
 
@@ -32,6 +33,12 @@ public class FilterController {
     @RequestMapping(value="/filter", method = RequestMethod.GET)
     public List<Car> getParams(@RequestParam Map<String, String> params ) {
         return carService.getFilteredCars(params);
+    }
+
+    @ResponseStatus
+    @PostMapping("/add-car")
+    public void addCar(@RequestBody Car car){
+        carService.saveCarToRent(car);
     }
 
 
