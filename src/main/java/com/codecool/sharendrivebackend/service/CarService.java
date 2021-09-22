@@ -33,25 +33,25 @@ public class CarService {
         return carRepository.findAll();
     }
 
-    public int calculatePriceForRentTime(LocalDate from, LocalDate to, Car car){
+    public int calculatePriceForRentTime(LocalDate from, LocalDate to, Car car) {
         return 0;
     } //TODO: think about location for this method
 
 
     private Map<String, List<String>> getUniqueParams(Map<String, String> params) { //TODO check if necessary
         Map<String, List<String>> checkedParams = new HashMap<>();
-        for(String param : params.keySet()){
-                List<String> values = Arrays.stream(params.get(param).split(","))
-                    .distinct()
-                    .collect(Collectors.toList());
-                checkedParams.put(param, values);
+        for (String param : params.keySet()) {
+            List<String> values = Arrays.stream(params.get(param).split(","))
+                .distinct()
+                .collect(Collectors.toList());
+            checkedParams.put(param, values);
         }
         checkFromToParams(checkedParams);
         return checkedParams;
     }
 
     private void checkFromToParams(Map<String, List<String>> checkedParams) {
-        if(checkedParams.containsKey("from") && !checkedParams.containsKey("to")){
+        if (checkedParams.containsKey("from") && !checkedParams.containsKey("to")) {
             checkedParams.remove("from");
         }
     }
@@ -61,7 +61,7 @@ public class CarService {
         return carRepository.findCarsByCriteria1(checkedParams);
     }
 
-    public List<Car> getFilteredCars2(Map<String, String> params){
+    public List<Car> getFilteredCars2(Map<String, String> params) {
         List<Car> foundCars = new ArrayList<>();
         Map<String, List<String>> checkedParams = getUniqueParams(params);
         for (String key : params.keySet()) {
@@ -88,6 +88,10 @@ public class CarService {
                 case "bodyType":
                     foundCars.addAll(carRepository.findCarsByBodyType(checkedParams.get(key)));
                     break;
+                case "carType":
+                    foundCars.addAll(carRepository.findCarsByCarType(checkedParams.get(key)));
+                    break;
+
             }
         }
         return getCommonElements(foundCars);
