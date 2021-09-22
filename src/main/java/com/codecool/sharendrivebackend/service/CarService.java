@@ -75,6 +75,9 @@ public class CarService {
                     LocalDate to = LocalDate.parse(params.get("to"), formatter);
                     foundCars.addAll(bookingsRepository.getCarsByDates(from, to));
                     break;
+                case "fuel_type":
+                    foundCars.addAll(carRepository.findCarsByFuelType(checkedParams.get("fuel_type")));
+                    break;
             }
         }
         return getCommonElements(foundCars);
