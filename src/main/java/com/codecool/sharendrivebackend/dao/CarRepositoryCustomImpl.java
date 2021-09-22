@@ -2,6 +2,7 @@ package com.codecool.sharendrivebackend.dao;
 
 import com.codecool.sharendrivebackend.model.car.BodyType;
 import com.codecool.sharendrivebackend.model.car.Car;
+import com.codecool.sharendrivebackend.model.car.CarType;
 import com.codecool.sharendrivebackend.model.car.FuelType;
 import org.springframework.stereotype.Component;
 
@@ -65,6 +66,24 @@ public class CarRepositoryCustomImpl implements CarRepositoryCustom {
         List<Predicate> predicates = new ArrayList<>();
         for (String type : bodyTypes) {
             predicates.add(cb.equal(path, BodyType.getTypeByName(type)));
+        }
+        query.select(car)
+            .where(cb.or(predicates.toArray(new Predicate[predicates.size()])));
+        return entityManager.createQuery(query)
+            .getResultList();
+    }
+
+    @Override
+    public List<Car> findCarsByCarType(List<String> carTypes) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Car> query = cb.createQuery(Car.class);
+        Root<Car> car = query.from(Car.class);
+
+        Path<CarType> path = car.get("carType");
+
+        List<Predicate> predicates = new ArrayList<>();
+        for (String type : carTypes) {
+            predicates.add(cb.equal(path, CarType.getTypeByName(type)));
         }
         query.select(car)
             .where(cb.or(predicates.toArray(new Predicate[predicates.size()])));
