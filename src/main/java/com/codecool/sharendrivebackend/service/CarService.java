@@ -1,22 +1,28 @@
 package com.codecool.sharendrivebackend.service;
 
+import com.codecool.sharendrivebackend.dao.BookingsRepository;
 import com.codecool.sharendrivebackend.dao.CarRepository;
 import com.codecool.sharendrivebackend.model.car.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
 public class CarService {
 
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+
     private final CarRepository carRepository;
+    private final BookingsRepository bookingsRepository;
 
     @Autowired
-    public CarService(CarRepository carRepository) {
+    public CarService(CarRepository carRepository, BookingsRepository bookingsRepository) {
         this.carRepository = carRepository;
+        this.bookingsRepository = bookingsRepository;
     }
 
     public List<Car> getFeaturedCars() {
@@ -64,6 +70,11 @@ public class CarService {
                     int minSeatNumber = Integer.parseInt((checkedParams.get(key)).get(0));
                     foundCars.addAll(carRepository.findBySeatNumberGreaterThanEqual(minSeatNumber));
                     break;
+                case "from":
+                    LocalDate from = LocalDate.parse(params.get("from"), formatter);
+                    LocalDate to = LocalDate.parse(params.get("to"), formatter);
+                    foundCars.addAll(bookingsRepository.getCarsByDates(from, to));
+                    break;
             }
         }
         return getCommonElements(foundCars);
@@ -77,6 +88,9 @@ public class CarService {
                 commonCars.add(car);
             }
         }
-        return allCars.equals(new ArrayList<>(uniqueCars)) ? allCars : commonCars;
+        allCars = allCars.stream().sorted(Comparator.comparing(Car::getId)).collect(Collectors.toList());
+        List<Car> uniqueCarsList = new ArrayList<>(uniqueCars).stream().sorted(Comparator.comparing(Car::getId)).collect(Collectors.toList());
+
+        return allCars.equals(uniqueCarsList) ? allCars : commonCars;
     }
 }
