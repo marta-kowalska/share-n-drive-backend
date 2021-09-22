@@ -2,6 +2,7 @@ package com.codecool.sharendrivebackend.model.car;
 
 import com.codecool.sharendrivebackend.model.customer.Customer;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,7 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@JsonIgnoreProperties({"customer", "licencePlate"})
 public class Car {
     @Id
     @GeneratedValue
@@ -41,6 +41,7 @@ public class Car {
     @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Customer customer;
 
 }
