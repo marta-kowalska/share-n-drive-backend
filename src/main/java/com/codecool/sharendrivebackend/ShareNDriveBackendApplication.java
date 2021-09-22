@@ -1,5 +1,6 @@
 package com.codecool.sharendrivebackend;
 
+import com.codecool.sharendrivebackend.dao.CarRepository;
 import com.codecool.sharendrivebackend.dao.CustomerRepository;
 import com.codecool.sharendrivebackend.model.address.Address;
 import com.codecool.sharendrivebackend.model.car.BodyType;
@@ -21,6 +22,9 @@ public class ShareNDriveBackendApplication {
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Autowired
+    private CarRepository carRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(ShareNDriveBackendApplication.class, args);
     }
@@ -29,6 +33,7 @@ public class ShareNDriveBackendApplication {
     @Profile("production")
     public CommandLineRunner init() {
         return args -> {
+          
             Car volkswagen = Car.builder()
                     .brand("Volkswagen")
                     .licencePlate("AAA-111")
@@ -104,6 +109,7 @@ public class ShareNDriveBackendApplication {
             mercedes.setCustomer(two);
 
             customerRepository.saveAll(Arrays.asList(one, two));
+
         };
     }
 }
