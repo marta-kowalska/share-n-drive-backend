@@ -1,5 +1,6 @@
 package com.codecool.sharendrivebackend.controller;
 
+import com.codecool.sharendrivebackend.model.car.BodyType;
 import com.codecool.sharendrivebackend.model.car.Car;
 import com.codecool.sharendrivebackend.model.car.FuelType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,11 @@ public class CarController {
     @GetMapping("/fuelTypes")
     public List<FuelType> getFuelTypes() {
         return carService.getFuelTypes();
+    }
+
+    @GetMapping("/bodyTypes")
+    public List<BodyType> getBodyTypes() {
+        return carService.getBodyTypes();
     }
 
 
