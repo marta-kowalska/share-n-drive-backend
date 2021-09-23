@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/share-n-drive")
 @CrossOrigin(origins = "http://localhost:3000/")
-public class UserController {
+public class CustomerController {
 
     private final CustomerService customerService;
 
 
     @Autowired
-    public UserController(CustomerService customerService){
+    public CustomerController(CustomerService customerService){
         this.customerService = customerService;
     }
 
