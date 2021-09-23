@@ -1,5 +1,8 @@
 package com.codecool.sharendrivebackend.model.bookings;
 
+import com.codecool.sharendrivebackend.model.car.Car;
+import com.codecool.sharendrivebackend.model.customer.Customer;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
+@JsonIgnoreProperties(value = { "customer" })
 public class Bookings {
 
     @Id
@@ -21,7 +25,15 @@ public class Bookings {
 
     private LocalDate rentTo;
 
-    private Long customerId;
+    @ManyToOne
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Customer customer;
 
-    private Long carId;
+    @ManyToOne
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Car car;
 }
+
+
