@@ -7,7 +7,8 @@ public enum CarType {
     ECO("eco"),
     GAS_GUZZLER("eco"),
     RACE_CAR("race_car"),
-    FUN("fun");
+    FUN("fun"),
+    LUXURY("luxury");
 
     private final String name;
 
