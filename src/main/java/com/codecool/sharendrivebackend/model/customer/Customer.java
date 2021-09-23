@@ -3,6 +3,7 @@ package com.codecool.sharendrivebackend.model.customer;
 import lombok.*;
 import com.codecool.sharendrivebackend.model.car.Car;
 import com.codecool.sharendrivebackend.model.address.Address;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -12,6 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
+
 public class Customer {
 
     @Id
@@ -26,6 +28,9 @@ public class Customer {
     private String firstName;
 
     private String lastName;
+    private String userName;
+    private String phone;
+    private String email;
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.PERSIST)
     @EqualsAndHashCode.Exclude

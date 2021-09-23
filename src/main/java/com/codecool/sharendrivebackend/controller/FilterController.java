@@ -10,6 +10,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/share-n-drive")
+@CrossOrigin(origins = "http://localhost:3000/")
 public class FilterController {
 
     private final CarService carService;
