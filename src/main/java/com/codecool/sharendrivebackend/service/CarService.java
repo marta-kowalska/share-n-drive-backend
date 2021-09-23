@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Component
 public class CarService {
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private final CarRepository carRepository;
     private final BookingsRepository bookingsRepository;
