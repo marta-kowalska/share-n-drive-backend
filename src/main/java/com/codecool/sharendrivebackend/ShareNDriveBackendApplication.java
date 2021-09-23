@@ -3,18 +3,21 @@ package com.codecool.sharendrivebackend;
 import com.codecool.sharendrivebackend.dao.CarRepository;
 import com.codecool.sharendrivebackend.dao.CustomerRepository;
 import com.codecool.sharendrivebackend.model.address.Address;
+import com.codecool.sharendrivebackend.model.bookings.Bookings;
 import com.codecool.sharendrivebackend.model.car.BodyType;
 import com.codecool.sharendrivebackend.model.car.Car;
 import com.codecool.sharendrivebackend.model.car.CarType;
 import com.codecool.sharendrivebackend.model.car.FuelType;
 import com.codecool.sharendrivebackend.model.customer.Customer;
-import com.codecool.sharendrivebackend.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
+
+import java.time.LocalDate;
+import java.util.Collections;
 
 @SpringBootApplication
 public class ShareNDriveBackendApplication {
@@ -33,6 +36,16 @@ public class ShareNDriveBackendApplication {
     @Profile("production")
     public CommandLineRunner init() {
         return args -> {
+            Bookings book1 = Bookings.builder()
+                    .rentFrom(LocalDate.of(2021, 9, 23))
+                    .rentTo(LocalDate.of(2021, 9, 25))
+                    .build();
+
+            Bookings book2 = Bookings.builder()
+                    .rentFrom(LocalDate.of(2021,9,29))
+                    .rentTo(LocalDate.of(2021,10,5))
+                    .build();
+
             Car bmw = Car.builder()
                     .bodyType(BodyType.SEDAN)
                     .brand("BMW")
@@ -40,6 +53,8 @@ public class ShareNDriveBackendApplication {
                     .carType(CarType.ECO)
                     .licencePlate("AAA-111")
                     .seatNumber(4)
+                    .price(8)
+                    .bookings(Collections.singletonList(book1))
                     .fuelType(FuelType.ELECTRIC)
                     .build();
 
@@ -50,6 +65,8 @@ public class ShareNDriveBackendApplication {
                     .carType(CarType.SELF_DRIVING)
                     .licencePlate("BBB-111")
                     .seatNumber(2)
+                    .bookings(Collections.singletonList(book2))
+                    .price(5)
                     .fuelType(FuelType.GASOLINE)
                     .build();
 
@@ -60,6 +77,7 @@ public class ShareNDriveBackendApplication {
                     .carType(CarType.ECO)
                     .licencePlate("ABA-111")
                     .seatNumber(5)
+                    .price(7)
                     .fuelType(FuelType.GASOLINE)
                     .build();
 
@@ -75,8 +93,14 @@ public class ShareNDriveBackendApplication {
                     .car(bmw)
                     .car(car1)
                     .car(car2)
+                    .booking(book1)
+                    .booking(book2)
                     .build();
 
+            book1.setCar(bmw);
+            book1.setCustomer(customer);
+            book2.setCar(car1);
+            book2.setCustomer(customer);
             bmw.setCustomer(customer);
             car1.setCustomer(customer);
             car2.setCustomer(customer);
