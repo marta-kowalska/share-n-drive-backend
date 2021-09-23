@@ -4,9 +4,9 @@ import com.codecool.sharendrivebackend.model.car.BodyType;
 import com.codecool.sharendrivebackend.model.car.Car;
 import com.codecool.sharendrivebackend.model.car.CarType;
 import com.codecool.sharendrivebackend.model.car.FuelType;
+import com.codecool.sharendrivebackend.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.codecool.sharendrivebackend.service.CarService;
 
 import java.util.List;
 import java.util.Map;
@@ -57,6 +57,16 @@ public class CarController {
     @GetMapping("/carTypes")
     public List<CarType> getCarTypes() {
         return carService.getCarTypes();
+    }
+
+    @GetMapping("/colors")
+    public List<String> getCarColors() {
+        return carService.getColors();
+    }
+
+    @GetMapping("/brands")
+    public List<String> getBrands() {
+        return carService.getBrands();
     }
 
 
