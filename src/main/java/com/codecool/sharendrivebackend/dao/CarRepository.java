@@ -2,8 +2,8 @@ package com.codecool.sharendrivebackend.dao;
 
 import com.codecool.sharendrivebackend.model.car.Car;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface CarRepository extends JpaRepository<Car, Long>, CarRepositoryCustom {
@@ -11,4 +11,10 @@ public interface CarRepository extends JpaRepository<Car, Long>, CarRepositoryCu
     List<Car> findByPriceLessThanEqual(int price);
 
     List<Car> findBySeatNumberGreaterThanEqual(int seatNumber);
+
+    @Query("select DISTINCT c.color from Car c")
+    List<String> getColors();
+
+    @Query("select DISTINCT c.brand from Car c")
+    List<String> getBrands();
 }
