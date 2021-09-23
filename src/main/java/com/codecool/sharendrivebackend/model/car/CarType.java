@@ -4,7 +4,10 @@ public enum CarType {
 
     HYBRID("hybrid"),
     SELF_DRIVING("self_driving"),
-    ECO("eco");
+    ECO("eco"),
+    GAS_GUZZLER("eco"),
+    RACE_CAR("race_car"),
+    FUN("fun");
 
     private final String name;
 

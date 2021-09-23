@@ -5,6 +5,7 @@ public enum BodyType {
     COUPE("coupe"),
     SEDAN("sedan"),
     STATION_WAGON("station_wagon"),
+    HATCHBACK("hatchback"),
     CONVERTIBLE("convertible");
 
     private final String name;
