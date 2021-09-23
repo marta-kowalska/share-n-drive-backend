@@ -4,6 +4,7 @@ import com.codecool.sharendrivebackend.dao.BookingsRepository;
 import com.codecool.sharendrivebackend.dao.CarRepository;
 import com.codecool.sharendrivebackend.model.car.BodyType;
 import com.codecool.sharendrivebackend.model.car.Car;
+import com.codecool.sharendrivebackend.model.car.CarType;
 import com.codecool.sharendrivebackend.model.car.FuelType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -119,5 +120,9 @@ public class CarService {
 
     public List<BodyType> getBodyTypes() {
         return Arrays.asList(BodyType.values());
+    }
+
+    public List<CarType> getCarTypes() {
+        return Arrays.asList(CarType.values());
     }
 }
