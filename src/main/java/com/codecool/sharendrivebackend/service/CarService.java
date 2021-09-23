@@ -122,4 +122,12 @@ public class CarService {
     public List<CarType> getCarTypes() {
         return Arrays.asList(CarType.values());
     }
+
+    public List<String> getColors() {
+        return carRepository.getColors();
+    }
+
+    public List<String> getBrands() {
+        return carRepository.getBrands();
+    }
 }

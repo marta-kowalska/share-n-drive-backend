@@ -8,7 +8,6 @@ import com.codecool.sharendrivebackend.model.car.Car;
 import com.codecool.sharendrivebackend.model.car.CarType;
 import com.codecool.sharendrivebackend.model.car.FuelType;
 import com.codecool.sharendrivebackend.model.customer.Customer;
-import com.codecool.sharendrivebackend.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -35,33 +34,88 @@ public class ShareNDriveBackendApplication {
         return args -> {
             Car bmw = Car.builder()
                     .bodyType(BodyType.SEDAN)
-                    .brand("BMW")
-                    .color("Black")
-                    .carType(CarType.ECO)
-                    .licencePlate("AAA-111")
-                    .seatNumber(4)
+                    .brand("Tesla")
+                    .title("model s")
+                    .color("White")
+                    .carType(CarType.SELF_DRIVING)
+                    .licencePlate("MAR-TA1")
+                    .seatNumber(7)
                     .fuelType(FuelType.ELECTRIC)
+                    .price(18000)
                     .build();
 
             Car car1 = Car.builder()
-                    .bodyType(BodyType.CONVERTIBLE)
+                    .bodyType(BodyType.STATION_WAGON)
                     .brand("Audi")
-                    .color("White")
-                    .carType(CarType.SELF_DRIVING)
-                    .licencePlate("BBB-111")
-                    .seatNumber(2)
+                    .title("RS6")
+                    .color("Silver")
+                    .carType(CarType.GAS_GUZZLER)
+                    .licencePlate("MAR-TA2")
+                    .seatNumber(5)
                     .fuelType(FuelType.GASOLINE)
+                    .price(37000)
                     .build();
 
             Car car2 = Car.builder()
                     .bodyType(BodyType.SEDAN)
-                    .brand("Volkswagen")
+                    .brand("BMW")
+                    .title("760Li")
+                    .color("Black")
+                    .carType(CarType.GAS_GUZZLER)
+                    .licencePlate("MAR-TA3")
+                    .seatNumber(4)
+                    .fuelType(FuelType.GASOLINE)
+                    .price(32000)
+                    .build();
+            Car car4 = Car.builder()
+                    .bodyType(BodyType.SEDAN)
+                    .brand("Tesla")
+                    .title("model y")
+                    .color("White")
+                    .carType(CarType.SELF_DRIVING)
+                    .licencePlate("AAA-111")
+                    .seatNumber(7)
+                    .fuelType(FuelType.ELECTRIC)
+                    .price(15000)
+                    .build();
+
+            Car car5 = Car.builder()
+                    .bodyType(BodyType.CONVERTIBLE)
+                    .brand("Mercedes")
+                    .title("AMG GT")
                     .color("Silver")
-                    .carType(CarType.ECO)
-                    .licencePlate("ABA-111")
+                    .carType(CarType.RACE_CAR)
+                    .licencePlate("MAR-TA4")
+                    .seatNumber(7)
+                    .fuelType(FuelType.GASOLINE)
+                    .price(56000)
+                    .build();
+
+            Car car3 = Car.builder()
+                    .bodyType(BodyType.SEDAN)
+                    .brand("Mercedes")
+                    .title("S65 AMG")
+                    .color("Silver")
+                    .carType(CarType.LUXURY)
+                    .licencePlate("BBB-111")
                     .seatNumber(5)
                     .fuelType(FuelType.GASOLINE)
+                    .price(42000)
                     .build();
+
+            Car car6 = Car.builder()
+                    .bodyType(BodyType.HATCHBACK)
+                    .brand("Renault")
+                    .title("clio")
+                    .color("Silver")
+                    .carType(CarType.FUN)
+                    .licencePlate("xxx-xxx")
+                    .seatNumber(5)
+                    .fuelType(FuelType.GASOLINE)
+                    .price(8000)
+                    .build();
+
+
 
             Address address1 = Address.builder().city("Budapest").zipCode(1111).street("Nagymezo").house("44").build();
 
@@ -81,7 +135,10 @@ public class ShareNDriveBackendApplication {
             car1.setCustomer(customer);
             car2.setCustomer(customer);
             address1.setCustomer(customer);
-
+            carRepository.save(car3);
+            carRepository.save(car4);
+            carRepository.save(car5);
+            carRepository.save(car6);
             customerRepository.save(customer);
         };
     }

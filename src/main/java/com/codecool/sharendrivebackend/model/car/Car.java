@@ -40,6 +40,7 @@ public class Car {
     private int price;
 
     private String brand;
+    private String title;
 
     @ManyToOne
     @ToString.Exclude
