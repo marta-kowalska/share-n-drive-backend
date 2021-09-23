@@ -30,5 +30,11 @@ public class CustomerController {
         return customerService.findCustomerById(customerId);
     }
 
+    @PostMapping("/book-car")
+    public void bookCar(@RequestBody Bookings booking) {
+        customerService.saveBooking(booking);
+    }
+
+
 
 }
