@@ -2,12 +2,14 @@ package com.codecool.sharendrivebackend.service;
 
 import com.codecool.sharendrivebackend.dao.BookingsRepository;
 import com.codecool.sharendrivebackend.dao.CarRepository;
+import com.codecool.sharendrivebackend.model.bookings.Bookings;
 import com.codecool.sharendrivebackend.model.car.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -72,8 +74,9 @@ public class CarService {
     }
 
     public int calculatePriceForRentTime(LocalDate from, LocalDate to, Car car) {
-        return 0;
-    } //TODO: think about location for this method
+        int days = (int) ChronoUnit.DAYS.between(from, to);
+        return car.getPrice() * days;
+    }
 
     private Map<String, List<String>> getUniqueParams(Map<String, String> params) {
         Map<String, List<String>> checkedParams = new HashMap<>();
@@ -109,5 +112,9 @@ public class CarService {
 
     public void saveCarToRent(Car car) {
         carRepository.save(car);
+    }
+
+    public void deleteCar(String id) {
+        carRepository.deleteById(Long.valueOf(id));
     }
 }
