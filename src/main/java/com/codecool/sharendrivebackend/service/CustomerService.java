@@ -29,4 +29,8 @@ public class CustomerService {
     public Customer findCustomerById(Long id){
         return customerRepository.findById(id).get();
     }
+
+    public void saveBooking(Bookings booking) {
+        bookingsRepository.save(booking);
+    }
 }

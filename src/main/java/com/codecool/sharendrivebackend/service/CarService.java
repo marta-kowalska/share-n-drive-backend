@@ -2,7 +2,10 @@ package com.codecool.sharendrivebackend.service;
 
 import com.codecool.sharendrivebackend.dao.BookingsRepository;
 import com.codecool.sharendrivebackend.dao.CarRepository;
+import com.codecool.sharendrivebackend.model.car.BodyType;
 import com.codecool.sharendrivebackend.model.car.Car;
+import com.codecool.sharendrivebackend.model.car.CarType;
+import com.codecool.sharendrivebackend.model.car.FuelType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -68,7 +71,7 @@ public class CarService {
                     break;
             }
         }
-        return getCommonElements(foundCars);
+        return (checkedParams.keySet().size() == 1 ? foundCars : getCommonElements(foundCars));
     }
 
     public int calculatePriceForRentTime(LocalDate from, LocalDate to, Car car) {
@@ -101,13 +104,22 @@ public class CarService {
                 commonCars.add(car);
             }
         }
-        allCars = allCars.stream().sorted(Comparator.comparing(Car::getId)).collect(Collectors.toList());
-        List<Car> uniqueCarsList = new ArrayList<>(uniqueCars).stream().sorted(Comparator.comparing(Car::getId)).collect(Collectors.toList());
-
-        return allCars.equals(uniqueCarsList) ? allCars : commonCars;
+        return commonCars;
     }
 
     public void saveCarToRent(Car car) {
         carRepository.save(car);
+    }
+
+    public List<FuelType> getFuelTypes() {
+        return Arrays.asList(FuelType.values());
+    }
+
+    public List<BodyType> getBodyTypes() {
+        return Arrays.asList(BodyType.values());
+    }
+
+    public List<CarType> getCarTypes() {
+        return Arrays.asList(CarType.values());
     }
 }

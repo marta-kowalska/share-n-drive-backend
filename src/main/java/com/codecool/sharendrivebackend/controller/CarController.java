@@ -1,6 +1,9 @@
 package com.codecool.sharendrivebackend.controller;
 
+import com.codecool.sharendrivebackend.model.car.BodyType;
 import com.codecool.sharendrivebackend.model.car.Car;
+import com.codecool.sharendrivebackend.model.car.CarType;
+import com.codecool.sharendrivebackend.model.car.FuelType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.codecool.sharendrivebackend.service.CarService;
@@ -35,10 +38,25 @@ public class CarController {
         return carService.getFilteredCars(params);
     }
 
-    @ResponseStatus
+//    @ResponseStatus(HttpStatus.OK)
     @PostMapping("/add-car")
     public void addCar(@RequestBody Car car){
         carService.saveCarToRent(car);
+    }
+
+    @GetMapping("/fuelTypes")
+    public List<FuelType> getFuelTypes() {
+        return carService.getFuelTypes();
+    }
+
+    @GetMapping("/bodyTypes")
+    public List<BodyType> getBodyTypes() {
+        return carService.getBodyTypes();
+    }
+
+    @GetMapping("/carTypes")
+    public List<CarType> getCarTypes() {
+        return carService.getCarTypes();
     }
 
 
