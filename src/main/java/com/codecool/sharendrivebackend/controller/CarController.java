@@ -41,5 +41,8 @@ public class CarController {
         carService.saveCarToRent(car);
     }
 
-
+    @RequestMapping(method = RequestMethod.DELETE, value = "/remove-car/{id}")
+    public void deleteCar(@PathVariable String id) {
+        carService.deleteCar(id);
+    }
 }
