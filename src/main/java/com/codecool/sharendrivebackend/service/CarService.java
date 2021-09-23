@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Component
 public class CarService {
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private final CarRepository carRepository;
     private final BookingsRepository bookingsRepository;
@@ -105,5 +105,9 @@ public class CarService {
         List<Car> uniqueCarsList = new ArrayList<>(uniqueCars).stream().sorted(Comparator.comparing(Car::getId)).collect(Collectors.toList());
 
         return allCars.equals(uniqueCarsList) ? allCars : commonCars;
+    }
+
+    public void saveCarToRent(Car car) {
+        carRepository.save(car);
     }
 }
