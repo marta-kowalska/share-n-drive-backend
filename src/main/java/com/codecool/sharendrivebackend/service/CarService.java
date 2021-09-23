@@ -71,7 +71,7 @@ public class CarService {
                     break;
             }
         }
-        return getCommonElements(foundCars);
+        return (checkedParams.keySet().size() == 1 ? foundCars : getCommonElements(foundCars));
     }
 
     public int calculatePriceForRentTime(LocalDate from, LocalDate to, Car car) {
@@ -104,10 +104,7 @@ public class CarService {
                 commonCars.add(car);
             }
         }
-        allCars = allCars.stream().sorted(Comparator.comparing(Car::getId)).collect(Collectors.toList());
-        List<Car> uniqueCarsList = new ArrayList<>(uniqueCars).stream().sorted(Comparator.comparing(Car::getId)).collect(Collectors.toList());
-
-        return allCars.equals(uniqueCarsList) ? allCars : commonCars;
+        return commonCars;
     }
 
     public void saveCarToRent(Car car) {
