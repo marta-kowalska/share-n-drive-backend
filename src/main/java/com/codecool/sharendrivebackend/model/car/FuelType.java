@@ -2,10 +2,10 @@ package com.codecool.sharendrivebackend.model.car;
 
 public enum FuelType {
 
-    GAS("gas"),
-    GASOLINE("gasoline"),
-    DIESEL("diesel"),
-    ELECTRIC("electric");
+    GAS("GAS"),
+    GASOLINE("GASOLINE"),
+    DIESEL("DIESEL"),
+    ELECTRIC("ELECTRIC");
 
     private final String name;
 

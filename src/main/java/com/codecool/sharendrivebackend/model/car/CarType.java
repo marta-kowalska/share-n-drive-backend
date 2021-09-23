@@ -2,13 +2,13 @@ package com.codecool.sharendrivebackend.model.car;
 
 public enum CarType {
 
-    HYBRID("hybrid"),
-    SELF_DRIVING("self_driving"),
-    ECO("eco"),
-    GAS_GUZZLER("eco"),
-    RACE_CAR("race_car"),
-    FUN("fun"),
-    LUXURY("luxury");
+    HYBRID("HYBRID"),
+    SELF_DRIVING("SELF_DRIVING"),
+    ECO("ECO"),
+    GAS_GUZZLER("GAS_GUZZLER"),
+    RACE_CAR("RACE_CAR"),
+    FUN("FUN"),
+    LUXURY("LUXURY");
 
     private final String name;
 

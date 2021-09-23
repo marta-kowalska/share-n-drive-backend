@@ -2,11 +2,11 @@ package com.codecool.sharendrivebackend.model.car;
 
 public enum BodyType {
 
-    COUPE("coupe"),
-    SEDAN("sedan"),
-    STATION_WAGON("station_wagon"),
-    HATCHBACK("hatchback"),
-    CONVERTIBLE("convertible");
+    COUPE("COUPE"),
+    SEDAN("SEDAN"),
+    STATION_WAGON("STATION_WAGON"),
+    HATCHBACK("HATCHBACK"),
+    CONVERTIBLE("CONVERTIBLE");
 
     private final String name;
 
