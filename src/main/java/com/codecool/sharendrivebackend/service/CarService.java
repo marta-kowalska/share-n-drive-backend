@@ -3,6 +3,7 @@ package com.codecool.sharendrivebackend.service;
 import com.codecool.sharendrivebackend.dao.BookingsRepository;
 import com.codecool.sharendrivebackend.dao.CarRepository;
 import com.codecool.sharendrivebackend.model.car.Car;
+import com.codecool.sharendrivebackend.model.car.FuelType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -109,5 +110,9 @@ public class CarService {
 
     public void saveCarToRent(Car car) {
         carRepository.save(car);
+    }
+
+    public List<FuelType> getFuelTypes() {
+        return Arrays.asList(FuelType.values());
     }
 }
