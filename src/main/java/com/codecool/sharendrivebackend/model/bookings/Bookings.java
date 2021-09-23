@@ -14,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@JsonIgnoreProperties(value = { "customer" })
 public class Bookings {
 
     @Id
