@@ -8,7 +8,6 @@ import com.codecool.sharendrivebackend.model.car.Car;
 import com.codecool.sharendrivebackend.model.car.CarType;
 import com.codecool.sharendrivebackend.model.car.FuelType;
 import com.codecool.sharendrivebackend.model.customer.Customer;
-import com.codecool.sharendrivebackend.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -72,7 +71,7 @@ public class ShareNDriveBackendApplication {
                     .bodyType(BodyType.SEDAN)
                     .brand("Tesla")
                     .title("model y")
-                    .color("white")
+                    .color("White")
                     .carType(CarType.SELF_DRIVING)
                     .licencePlate("AAA-111")
                     .seatNumber(7)
@@ -84,7 +83,7 @@ public class ShareNDriveBackendApplication {
                     .bodyType(BodyType.CONVERTIBLE)
                     .brand("Mercedes")
                     .title("AMG GT")
-                    .color("silver")
+                    .color("Silver")
                     .carType(CarType.RACE_CAR)
                     .licencePlate("MAR-TA4")
                     .seatNumber(7)
@@ -96,7 +95,7 @@ public class ShareNDriveBackendApplication {
                     .bodyType(BodyType.SEDAN)
                     .brand("Mercedes")
                     .title("S65 AMG")
-                    .color("silver")
+                    .color("Silver")
                     .carType(CarType.LUXURY)
                     .licencePlate("BBB-111")
                     .seatNumber(5)
@@ -108,7 +107,7 @@ public class ShareNDriveBackendApplication {
                     .bodyType(BodyType.HATCHBACK)
                     .brand("Renault")
                     .title("clio")
-                    .color("silver")
+                    .color("Silver")
                     .carType(CarType.FUN)
                     .licencePlate("xxx-xxx")
                     .seatNumber(5)
