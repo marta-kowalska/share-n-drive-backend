@@ -22,7 +22,11 @@ public class CustomerService {
     }
 
     public List<Bookings> getBookingsByCustomerId(Long id){
-        Customer customer = customerRepository.findById(id).get();
+        Customer customer = findCustomerById(id);
         return bookingsRepository.findAllByCustomer(customer);
+    }
+
+    public Customer findCustomerById(Long id){
+        return customerRepository.findById(id).get();
     }
 }
