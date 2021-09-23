@@ -32,7 +32,7 @@ class AddressRepositoryTest {
     public void saveOneAddress() {
         Address budapest = Address.builder()
                 .city("Budapest")
-                .address("Nagymező street 44")
+                .street("Nagymező street 44")
                 .zipCode(1061)
                 .build();
 
@@ -45,7 +45,7 @@ class AddressRepositoryTest {
 
         Address address = Address.builder()
                 .city("Budapest")
-                .address("Nagymező street 44")
+                .street("Nagymező street 44")
                 .zipCode(1061)
                 .build();
 
