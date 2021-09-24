@@ -38,7 +38,7 @@ public class ShareNDriveBackendApplication {
                     .title("model s")
                     .color("White")
                     .carType(CarType.SELF_DRIVING)
-                    .licencePlate("MAR-TA1")
+                    .licencePlate("MARTA-1")
                     .seatNumber(7)
                     .fuelType(FuelType.ELECTRIC)
                     .price(18000)
@@ -50,7 +50,7 @@ public class ShareNDriveBackendApplication {
                     .title("RS6")
                     .color("Silver")
                     .carType(CarType.GAS_GUZZLER)
-                    .licencePlate("MAR-TA2")
+                    .licencePlate("MARTA-2")
                     .seatNumber(5)
                     .fuelType(FuelType.GASOLINE)
                     .price(37000)
@@ -62,7 +62,7 @@ public class ShareNDriveBackendApplication {
                     .title("760Li")
                     .color("Black")
                     .carType(CarType.GAS_GUZZLER)
-                    .licencePlate("MAR-TA3")
+                    .licencePlate("MARTA-3")
                     .seatNumber(4)
                     .fuelType(FuelType.GASOLINE)
                     .price(32000)
@@ -70,10 +70,10 @@ public class ShareNDriveBackendApplication {
             Car car4 = Car.builder()
                     .bodyType(BodyType.SEDAN)
                     .brand("Tesla")
-                    .title("model y")
+                    .title("Model X")
                     .color("White")
                     .carType(CarType.SELF_DRIVING)
-                    .licencePlate("AAA-111")
+                    .licencePlate("AGA-111")
                     .seatNumber(7)
                     .fuelType(FuelType.ELECTRIC)
                     .price(15000)
@@ -85,7 +85,7 @@ public class ShareNDriveBackendApplication {
                     .title("AMG GT")
                     .color("Silver")
                     .carType(CarType.RACE_CAR)
-                    .licencePlate("MAR-TA4")
+                    .licencePlate("MARTA-4")
                     .seatNumber(7)
                     .fuelType(FuelType.GASOLINE)
                     .price(56000)
@@ -97,7 +97,7 @@ public class ShareNDriveBackendApplication {
                     .title("S65 AMG")
                     .color("Silver")
                     .carType(CarType.LUXURY)
-                    .licencePlate("BBB-111")
+                    .licencePlate("BFG-567")
                     .seatNumber(5)
                     .fuelType(FuelType.GASOLINE)
                     .price(42000)
@@ -106,7 +106,7 @@ public class ShareNDriveBackendApplication {
             Car car6 = Car.builder()
                     .bodyType(BodyType.HATCHBACK)
                     .brand("Renault")
-                    .title("clio")
+                    .title("Clio")
                     .color("Silver")
                     .carType(CarType.FUN)
                     .licencePlate("xxx-xxx")
@@ -115,6 +115,61 @@ public class ShareNDriveBackendApplication {
                     .price(8000)
                     .build();
 
+            Car car7 = Car.builder()
+                    .bodyType(BodyType.HATCHBACK)
+                    .brand("Dacia")
+                    .title("Duster")
+                    .color("orange")
+                    .carType(CarType.ECO)
+                    .licencePlate("DFD-323")
+                    .seatNumber(5)
+                    .fuelType(FuelType.GASOLINE)
+                    .price(10000)
+                    .build();
+            Car car8 = Car.builder()
+                    .bodyType(BodyType.HATCHBACK)
+                    .brand("Suzuki")
+                    .title("Swift")
+                    .color("Blue")
+                    .carType(CarType.ECO)
+                    .licencePlate("DFG-121")
+                    .seatNumber(5)
+                    .fuelType(FuelType.DIESEL)
+                    .price(7000)
+                    .build();
+            Car car9 = Car.builder()
+                    .bodyType(BodyType.HATCHBACK)
+                    .brand("Skoda")
+                    .title("Octavia")
+                    .color("Blue")
+                    .carType(CarType.FUN)
+                    .licencePlate("SFD-689")
+                    .seatNumber(5)
+                    .fuelType(FuelType.GAS)
+                    .price(15000)
+                    .build();
+            Car car10 = Car.builder()
+                    .bodyType(BodyType.HATCHBACK)
+                    .brand("Ford")
+                    .title("Fiesta")
+                    .color("Red")
+                    .carType(CarType.FUN)
+                    .licencePlate("FSA-435")
+                    .seatNumber(5)
+                    .fuelType(FuelType.DIESEL)
+                    .price(12000)
+                    .build();
+            Car car11 = Car.builder()
+                    .bodyType(BodyType.HATCHBACK)
+                    .brand("Nissan")
+                    .title("Leaf")
+                    .color("Red")
+                    .carType(CarType.SELF_DRIVING)
+                    .licencePlate("DFW-345")
+                    .seatNumber(4)
+                    .fuelType(FuelType.ELECTRIC)
+                    .price(17000)
+                    .build();
 
 
             Address address1 = Address.builder().city("Budapest").zipCode(1111).street("Nagymezo").house("44").build();
@@ -139,6 +194,11 @@ public class ShareNDriveBackendApplication {
             carRepository.save(car4);
             carRepository.save(car5);
             carRepository.save(car6);
+            carRepository.save(car7);
+            carRepository.save(car8);
+            carRepository.save(car9);
+            carRepository.save(car10);
+            carRepository.save(car11);
             customerRepository.save(customer);
         };
     }
