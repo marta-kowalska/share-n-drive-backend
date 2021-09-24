@@ -35,7 +35,7 @@ public class ShareNDriveBackendApplication {
             Car bmw = Car.builder()
                     .bodyType(BodyType.SEDAN)
                     .brand("Tesla")
-                    .title("model s")
+                    .title("Model S")
                     .color("White")
                     .carType(CarType.SELF_DRIVING)
                     .licencePlate("MARTA-1")
@@ -170,6 +170,17 @@ public class ShareNDriveBackendApplication {
                     .fuelType(FuelType.ELECTRIC)
                     .price(17000)
                     .build();
+            Car car12 = Car.builder()
+                    .bodyType(BodyType.HATCHBACK)
+                    .brand("Peugeot")
+                    .title("Teepee")
+                    .color("Blue")
+                    .carType(CarType.ECO)
+                    .licencePlate("TRE-345")
+                    .seatNumber(4)
+                    .fuelType(FuelType.DIESEL)
+                    .price(9000)
+                    .build();
 
 
             Address address1 = Address.builder().city("Budapest").zipCode(1111).street("Nagymezo").house("44").build();
@@ -199,6 +210,7 @@ public class ShareNDriveBackendApplication {
             carRepository.save(car9);
             carRepository.save(car10);
             carRepository.save(car11);
+            carRepository.save(car12);
             customerRepository.save(customer);
         };
     }

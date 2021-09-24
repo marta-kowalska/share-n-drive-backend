@@ -6,6 +6,7 @@ import com.codecool.sharendrivebackend.model.car.CarType;
 import com.codecool.sharendrivebackend.model.car.FuelType;
 import com.codecool.sharendrivebackend.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public class CarController {
         return carService.getFilteredCars(params);
     }
 
-//    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.OK)
     @PostMapping("/add-car")
     public void addCar(@RequestBody Car car){
         carService.saveCarToRent(car);

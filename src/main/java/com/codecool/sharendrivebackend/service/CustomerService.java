@@ -33,4 +33,8 @@ public class CustomerService {
     public void saveBooking(Bookings booking) {
         bookingsRepository.save(booking);
     }
+
+    public Customer getFirstCustomer() {
+        return  customerRepository.findAll().get(0);
+    }
 }

@@ -37,6 +37,7 @@ public class CarService {
     }
 
     public List<Car> getFilteredCars(Map<String, String> params) {
+
         List<Car> foundCars = new ArrayList<>();
         Map<String, List<String>> checkedParams = getUniqueParams(params);
         for (String key : params.keySet()) {

@@ -35,6 +35,10 @@ public class CustomerController {
         customerService.saveBooking(booking);
     }
 
+    @GetMapping("/getFirstCustomer")
+    public Customer getCustomer() {
+        return customerService.getFirstCustomer();
+    }
 
 
 }
