@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityManager;
 
@@ -41,7 +40,7 @@ class AddressRepositoryTest {
     }
 
     @Test
-    public void afterSaveACustomerWithAddress_ThatAddressHasTheCorrectCustomerId() {
+    public void afterSaveACustomerWithAddressThenAddressHasTheCorrectCustomerId() {
 
         Address address = Address.builder()
                 .city("Budapest")
@@ -57,6 +56,6 @@ class AddressRepositoryTest {
 
         address.setCustomer(customer);
         customerRepository.save(customer);
-        assertEquals(address.getCustomer().getId(), customer.getId());
+        assertTrue(addressRepository.findAll().stream().anyMatch(address1 -> address1.getCustomer().equals(customer)));
     }
 }
