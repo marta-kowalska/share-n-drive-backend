@@ -8,7 +8,8 @@ public enum CarType {
     GAS_GUZZLER("GAS_GUZZLER"),
     RACE_CAR("RACE_CAR"),
     FUN("FUN"),
-    LUXURY("LUXURY");
+    LUXURY("LUXURY"),
+    MINI("MINI");
 
     private final String name;
 
@@ -16,9 +17,9 @@ public enum CarType {
         this.name = name;
     }
 
-    public static CarType getTypeByName(String searchedName){
-        for(CarType type : values()){
-            if(type.name.equals(searchedName)){
+    public static CarType getTypeByName(String searchedName) {
+        for (CarType type : values()) {
+            if (type.name.equals(searchedName)) {
                 return type;
             }
         }
