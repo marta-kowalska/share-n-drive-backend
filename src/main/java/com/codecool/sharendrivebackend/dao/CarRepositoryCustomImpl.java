@@ -93,7 +93,7 @@ public class CarRepositoryCustomImpl implements CarRepositoryCustom {
         CriteriaQuery<Car> query = cb.createQuery(Car.class);
         Root<Car> car = query.from(Car.class);
 
-        Path<CarType> path = car.get("transmission");
+        Path<Transmission> path = car.get("transmission");
 
         List<Predicate> predicates = new ArrayList<>();
         for (String type : transmission) {

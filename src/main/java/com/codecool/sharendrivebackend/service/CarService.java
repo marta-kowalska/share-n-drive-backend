@@ -2,10 +2,7 @@ package com.codecool.sharendrivebackend.service;
 
 import com.codecool.sharendrivebackend.dao.BookingsRepository;
 import com.codecool.sharendrivebackend.dao.CarRepository;
-import com.codecool.sharendrivebackend.model.car.BodyType;
-import com.codecool.sharendrivebackend.model.car.Car;
-import com.codecool.sharendrivebackend.model.car.CarType;
-import com.codecool.sharendrivebackend.model.car.FuelType;
+import com.codecool.sharendrivebackend.model.car.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -70,6 +67,12 @@ public class CarService {
                 case "carType":
                     foundCars.addAll(carRepository.findCarsByCarType(checkedParams.get(key)));
                     break;
+                case "doors":
+                    foundCars.addAll(carRepository.findByDoorsEquals(Integer.parseInt((checkedParams.get(key)).get(0))));
+                    break;
+                case "transmission":
+                    foundCars.addAll(carRepository.findCarsByTransmissionType(checkedParams.get(key)));
+                    break;
             }
         }
         return (checkedParams.keySet().size() == 1 ? foundCars : getCommonElements(foundCars));
@@ -124,11 +127,19 @@ public class CarService {
         return Arrays.asList(CarType.values());
     }
 
+    public List<Transmission> getTransmissionTypes() {
+        return Arrays.asList(Transmission.values());
+    }
+
     public List<String> getColors() {
         return carRepository.getColors();
     }
 
     public List<String> getBrands() {
         return carRepository.getBrands();
+    }
+
+    public List<String> getDoorTypes() {
+        return carRepository.getDoors();
     }
 }

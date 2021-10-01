@@ -1,9 +1,6 @@
 package com.codecool.sharendrivebackend.controller;
 
-import com.codecool.sharendrivebackend.model.car.BodyType;
-import com.codecool.sharendrivebackend.model.car.Car;
-import com.codecool.sharendrivebackend.model.car.CarType;
-import com.codecool.sharendrivebackend.model.car.FuelType;
+import com.codecool.sharendrivebackend.model.car.*;
 import com.codecool.sharendrivebackend.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -63,6 +60,16 @@ public class CarController {
     @GetMapping("/colors")
     public List<String> getCarColors() {
         return carService.getColors();
+    }
+
+    @GetMapping("/transmissionTypes")
+    public List<Transmission> getTransmissionTypes() {
+        return carService.getTransmissionTypes();
+    }
+
+    @GetMapping("/DoorTypes")
+    public List<String> getDoorTypes() {
+        return carService.getDoorTypes();
     }
 
     @GetMapping("/brands")
