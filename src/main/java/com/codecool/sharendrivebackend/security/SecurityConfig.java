@@ -28,19 +28,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .httpBasic().disable()
-                .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/css/**", "/js/**", "/favicon.ico").permitAll()
-                .antMatchers(HttpMethod.GET, "/").denyAll()
-                .antMatchers(HttpMethod.POST, "/auth/signin").permitAll()
-                .antMatchers(HttpMethod.GET, "/**").denyAll()
-                .anyRequest().denyAll()
-                .and()
-                .addFilterBefore(new JwtTokenFilter(jwtTokenServices),
-                        UsernamePasswordAuthenticationFilter.class);
+            .httpBasic().disable()
+            .csrf().disable()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .authorizeRequests()
+            .antMatchers("/css/**", "/js/**", "/favicon.ico").permitAll()
+            .antMatchers(HttpMethod.POST, "/auth/signin").permitAll()
+            .antMatchers(HttpMethod.POST, "/share-n-drive/add-car").authenticated()
+            .antMatchers(HttpMethod.GET, "/share-n-drive/bookings/*").authenticated()
+            .antMatchers(HttpMethod.GET, "/share-n-drive/customer/*").authenticated()
+            .antMatchers(HttpMethod.POST, "/share-n-drive/book-car").authenticated()
+            .and()
+            .addFilterBefore(new JwtTokenFilter(jwtTokenServices),
+                UsernamePasswordAuthenticationFilter.class);
 
     }
 }
