@@ -1,19 +1,40 @@
 package com.codecool.sharendrivebackend.service;
 
+import com.codecool.sharendrivebackend.dao.BookingsRepository;
+import com.codecool.sharendrivebackend.model.bookings.Bookings;
 import com.codecool.sharendrivebackend.dao.CustomerRepository;
 import com.codecool.sharendrivebackend.model.customer.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Service
+@Component
 public class CustomerService {
 
-    @Autowired
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
+    private final BookingsRepository bookingsRepository;
 
-    public List<Customer> getCustomers() {
-        return customerRepository.findAll();
+    @Autowired
+    public CustomerService(CustomerRepository customerRepository, BookingsRepository bookingsRepository) {
+        this.customerRepository = customerRepository;
+        this.bookingsRepository = bookingsRepository;
+    }
+
+    public List<Bookings> getBookingsByCustomerId(Long id){
+        Customer customer = findCustomerById(id);
+        return bookingsRepository.findAllByCustomer(customer);
+    }
+
+    public Customer findCustomerById(Long id){
+        return customerRepository.findById(id).get();
+    }
+
+    public void saveBooking(Bookings booking) {
+        bookingsRepository.save(booking);
+    }
+
+    public Customer getFirstCustomer() {
+        return  customerRepository.findAll().get(0);
     }
 }

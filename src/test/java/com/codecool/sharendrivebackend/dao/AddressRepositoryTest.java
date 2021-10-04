@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
+
 
 import javax.persistence.EntityManager;
 
@@ -31,7 +33,7 @@ class AddressRepositoryTest {
     public void saveOneAddress() {
         Address budapest = Address.builder()
                 .city("Budapest")
-                .address("Nagymező street 44")
+                .street("Nagymező street 44")
                 .zipCode(1061)
                 .build();
 
@@ -44,7 +46,7 @@ class AddressRepositoryTest {
 
         Address address = Address.builder()
                 .city("Budapest")
-                .address("Nagymező street 44")
+                .street("Nagymező street 44")
                 .zipCode(1061)
                 .build();
 

@@ -1,33 +1,38 @@
-package com.codecool.sharendrivebackend.model.address;
+package com.codecool.sharendrivebackend.model.bookings;
 
+import com.codecool.sharendrivebackend.model.car.Car;
 import com.codecool.sharendrivebackend.model.customer.Customer;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@JsonIgnoreProperties({"customer", "address"})
-public class Address {
+public class Bookings {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @OneToOne
+    private LocalDate rentFrom;
+
+    private LocalDate rentTo;
+
+    @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Customer customer;
 
-    private int zipCode;
-
-    private String city;
-
-    private String street;
-
-    private String house;
+    @ManyToOne
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Car car;
 }
+
+

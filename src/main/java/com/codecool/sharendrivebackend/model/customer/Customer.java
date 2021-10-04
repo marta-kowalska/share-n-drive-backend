@@ -1,8 +1,11 @@
 package com.codecool.sharendrivebackend.model.customer;
 
-import com.codecool.sharendrivebackend.model.address.Address;
+import com.codecool.sharendrivebackend.model.bookings.Bookings;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import com.codecool.sharendrivebackend.model.car.Car;
+import com.codecool.sharendrivebackend.model.address.Address;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -12,6 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
+@JsonIgnoreProperties(value = { "bookings" })
 public class Customer {
 
     @Id
@@ -26,13 +30,17 @@ public class Customer {
     private String firstName;
 
     private String lastName;
-
-    @OneToMany(mappedBy = "whichCustomerRent", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    @Singular
-    @EqualsAndHashCode.Exclude
-    private Set<Car> rentedCars;
+    private String userName;
+    private String phone;
+    private String email;
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.PERSIST)
     @EqualsAndHashCode.Exclude
     private Address address;
+
+    @Singular
+    @OneToMany(mappedBy = "customer")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Bookings> bookings;
 }
