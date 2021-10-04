@@ -46,7 +46,7 @@ public class Car {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Customer customer;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "car", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @Singular
