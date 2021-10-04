@@ -1,13 +1,15 @@
 package com.codecool.sharendrivebackend.model.customer;
 
+import com.codecool.sharendrivebackend.model.address.Address;
 import com.codecool.sharendrivebackend.model.bookings.Bookings;
+import com.codecool.sharendrivebackend.model.car.Car;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import com.codecool.sharendrivebackend.model.car.Car;
-import com.codecool.sharendrivebackend.model.address.Address;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -30,9 +32,18 @@ public class Customer {
     private String firstName;
 
     private String lastName;
-    private String userName;
     private String phone;
     private String email;
+
+    @NotEmpty
+    private String username;
+
+    @NotEmpty
+    private String password;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<String> roles = new ArrayList<>();
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.PERSIST)
     @EqualsAndHashCode.Exclude
