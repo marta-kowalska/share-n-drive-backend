@@ -81,14 +81,14 @@ class CarRepositoryTest {
         assertTrue(cars.size() > 2);
     }
 
-    @Test
-    public void oneCarMustHaveAndOnlyOneOwner() {
-        Car bmw = Car.builder().brand("BMW").build();
-        Customer customer = Customer.builder().car(bmw).build();
-
-        customerRepository.save(customer);
-
-        List<Customer> customers = customerRepository.findAllCustomerByGivenCarName("BMW");
-        assertEquals(customers.size(), carRepository.findAll().stream().filter(car -> car.getCustomer() == null).count());
-    }
+//    @Test
+//    public void oneCarMustHaveAndOnlyOneOwner() {
+//        Car bmw = Car.builder().brand("BMW").build();
+//        Customer customer = Customer.builder().car(bmw).build();
+//
+//        customerRepository.save(customer);
+//
+//        List<Customer> customers = customerRepository.findAllCustomerByGivenCarName("BMW");
+//        assertEquals(customers.size(), carRepository.findAll().stream().filter(car -> car.getCustomer() == null).count());
+//    }
 }

@@ -48,7 +48,7 @@ class CustomerRepositoryTest {
         Customer peter = Customer.builder()
                 .firstName("Peter")
                 .lastName("Graham")
-                .address(Address.builder().address("address st. 1").build())
+                .address(Address.builder().street("address st.").house("1").build())
                 .build();
 
         Customer jacob = Customer.builder()
