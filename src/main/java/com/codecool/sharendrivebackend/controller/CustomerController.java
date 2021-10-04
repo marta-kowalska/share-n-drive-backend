@@ -3,10 +3,13 @@ package com.codecool.sharendrivebackend.controller;
 import com.codecool.sharendrivebackend.model.bookings.Bookings;
 import com.codecool.sharendrivebackend.model.customer.Customer;
 import com.codecool.sharendrivebackend.service.CustomerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/share-n-drive")
@@ -14,6 +17,8 @@ import java.util.List;
 public class CustomerController {
 
     private final CustomerService customerService;
+
+    public static Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
     @Autowired
     public CustomerController(CustomerService customerService) {
@@ -36,7 +41,10 @@ public class CustomerController {
     }
 
     @GetMapping("/getFirstCustomer")
-    public Customer getCustomer() {
+    public Customer getCustomer(@RequestHeader Map<String, String> headers) {
+        headers.forEach((key, value) -> {
+            logger.warn(String.format("Header '%s' = %s", key, value));
+        });
         return customerService.getFirstCustomer();
     }
 
