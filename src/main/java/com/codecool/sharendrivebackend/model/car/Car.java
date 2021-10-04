@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -31,6 +30,9 @@ public class Car {
     @Enumerated(EnumType.STRING)
     private BodyType bodyType;
 
+    @Enumerated(EnumType.STRING)
+    private Transmission transmission;
+
     @Column(unique = true)
     private String licencePlate;
 
@@ -39,8 +41,13 @@ public class Car {
 
     private int price;
 
+    private int doors;
+
+    private double rating;
+
     private String brand;
     private String title;
+
 
     @ManyToOne
     @ToString.Exclude

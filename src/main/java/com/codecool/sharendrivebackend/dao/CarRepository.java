@@ -12,8 +12,13 @@ public interface CarRepository extends JpaRepository<Car, Long>, CarRepositoryCu
 
     List<Car> findBySeatNumberGreaterThanEqual(int seatNumber);
 
+    List<Car> findByDoorsEquals(int doors);
+
     @Query("select DISTINCT c.color from Car c")
     List<String> getColors();
+
+    @Query("select DISTINCT c.doors from Car c")
+    List<String> getDoors();
 
     @Query("select DISTINCT c.brand from Car c")
     List<String> getBrands();

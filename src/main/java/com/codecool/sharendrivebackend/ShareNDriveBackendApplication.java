@@ -3,10 +3,7 @@ package com.codecool.sharendrivebackend;
 import com.codecool.sharendrivebackend.dao.CarRepository;
 import com.codecool.sharendrivebackend.dao.CustomerRepository;
 import com.codecool.sharendrivebackend.model.address.Address;
-import com.codecool.sharendrivebackend.model.car.BodyType;
-import com.codecool.sharendrivebackend.model.car.Car;
-import com.codecool.sharendrivebackend.model.car.CarType;
-import com.codecool.sharendrivebackend.model.car.FuelType;
+import com.codecool.sharendrivebackend.model.car.*;
 import com.codecool.sharendrivebackend.model.customer.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -40,6 +37,9 @@ public class ShareNDriveBackendApplication {
                     .carType(CarType.SELF_DRIVING)
                     .licencePlate("MARTA-1")
                     .seatNumber(7)
+                    .transmission(Transmission.AUTOMATIC)
+                    .doors(4)
+                    .rating(7.5)
                     .fuelType(FuelType.ELECTRIC)
                     .price(18000)
                     .build();
@@ -52,6 +52,9 @@ public class ShareNDriveBackendApplication {
                     .carType(CarType.GAS_GUZZLER)
                     .licencePlate("MARTA-2")
                     .seatNumber(5)
+                    .transmission(Transmission.AUTOMATIC)
+                    .doors(5)
+                    .rating(8.5)
                     .fuelType(FuelType.GASOLINE)
                     .price(37000)
                     .build();
@@ -64,6 +67,9 @@ public class ShareNDriveBackendApplication {
                     .carType(CarType.GAS_GUZZLER)
                     .licencePlate("MARTA-3")
                     .seatNumber(4)
+                    .transmission(Transmission.AUTOMATIC)
+                    .doors(5)
+                    .rating(8.5)
                     .fuelType(FuelType.GASOLINE)
                     .price(32000)
                     .build();
@@ -75,6 +81,9 @@ public class ShareNDriveBackendApplication {
                     .carType(CarType.SELF_DRIVING)
                     .licencePlate("AGA-111")
                     .seatNumber(7)
+                    .transmission(Transmission.AUTOMATIC)
+                    .doors(6)
+                    .rating(8.5)
                     .fuelType(FuelType.ELECTRIC)
                     .price(15000)
                     .build();
@@ -87,6 +96,9 @@ public class ShareNDriveBackendApplication {
                     .carType(CarType.RACE_CAR)
                     .licencePlate("MARTA-4")
                     .seatNumber(7)
+                    .transmission(Transmission.AUTOMATIC)
+                    .doors(2)
+                    .rating(9.7)
                     .fuelType(FuelType.GASOLINE)
                     .price(56000)
                     .build();
@@ -99,6 +111,9 @@ public class ShareNDriveBackendApplication {
                     .carType(CarType.LUXURY)
                     .licencePlate("BFG-567")
                     .seatNumber(5)
+                    .transmission(Transmission.AUTOMATIC)
+                    .doors(4)
+                    .rating(8.6)
                     .fuelType(FuelType.GASOLINE)
                     .price(42000)
                     .build();
@@ -111,6 +126,9 @@ public class ShareNDriveBackendApplication {
                     .carType(CarType.FUN)
                     .licencePlate("xxx-xxx")
                     .seatNumber(5)
+                    .transmission(Transmission.MANUAL)
+                    .doors(5)
+                    .rating(9.5)
                     .fuelType(FuelType.GASOLINE)
                     .price(8000)
                     .build();
@@ -123,6 +141,9 @@ public class ShareNDriveBackendApplication {
                     .carType(CarType.ECO)
                     .licencePlate("DFD-323")
                     .seatNumber(5)
+                    .transmission(Transmission.MANUAL)
+                    .doors(5)
+                    .rating(4.3)
                     .fuelType(FuelType.GASOLINE)
                     .price(10000)
                     .build();
@@ -134,6 +155,9 @@ public class ShareNDriveBackendApplication {
                     .carType(CarType.ECO)
                     .licencePlate("DFG-121")
                     .seatNumber(5)
+                    .transmission(Transmission.MANUAL)
+                    .doors(3)
+                    .rating(4.6)
                     .fuelType(FuelType.DIESEL)
                     .price(7000)
                     .build();
@@ -145,6 +169,9 @@ public class ShareNDriveBackendApplication {
                     .carType(CarType.FUN)
                     .licencePlate("SFD-689")
                     .seatNumber(5)
+                    .transmission(Transmission.AUTOMATIC)
+                    .doors(4)
+                    .rating(6.7)
                     .fuelType(FuelType.GAS)
                     .price(15000)
                     .build();
@@ -156,6 +183,9 @@ public class ShareNDriveBackendApplication {
                     .carType(CarType.FUN)
                     .licencePlate("FSA-435")
                     .seatNumber(5)
+                    .transmission(Transmission.MANUAL)
+                    .doors(3)
+                    .rating(7.4)
                     .fuelType(FuelType.DIESEL)
                     .price(12000)
                     .build();
@@ -167,6 +197,9 @@ public class ShareNDriveBackendApplication {
                     .carType(CarType.SELF_DRIVING)
                     .licencePlate("DFW-345")
                     .seatNumber(4)
+                    .transmission(Transmission.AUTOMATIC)
+                    .doors(4)
+                    .rating(7.5)
                     .fuelType(FuelType.ELECTRIC)
                     .price(17000)
                     .build();
@@ -178,6 +211,9 @@ public class ShareNDriveBackendApplication {
                     .carType(CarType.ECO)
                     .licencePlate("TRE-345")
                     .seatNumber(4)
+                    .transmission(Transmission.MANUAL)
+                    .doors(5)
+                    .rating(6.5)
                     .fuelType(FuelType.DIESEL)
                     .price(9000)
                     .build();

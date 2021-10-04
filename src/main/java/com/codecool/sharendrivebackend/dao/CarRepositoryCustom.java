@@ -3,7 +3,6 @@ package com.codecool.sharendrivebackend.dao;
 import com.codecool.sharendrivebackend.model.car.Car;
 
 import java.util.List;
-import java.util.Map;
 
 public interface CarRepositoryCustom {
 
@@ -14,4 +13,6 @@ public interface CarRepositoryCustom {
         List<Car> findCarsByBodyType(List<String> bodyTypes);
 
         List<Car> findCarsByCarType(List<String> carTypes);
+
+        List<Car> findCarsByTransmissionType(List<String> transmission);
 }
