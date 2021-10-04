@@ -11,6 +11,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.Arrays;
 
 @SpringBootApplication
 public class ShareNDriveBackendApplication {
@@ -20,6 +24,9 @@ public class ShareNDriveBackendApplication {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+
 
     public static void main(String[] args) {
         SpringApplication.run(ShareNDriveBackendApplication.class, args);
@@ -224,7 +231,9 @@ public class ShareNDriveBackendApplication {
             Customer customer = Customer.builder()
                     .firstName("Marta")
                     .lastName("Kowalska")
-                    .userName("Marta")
+                    .username("Marta")
+                    .password(passwordEncoder.encode("password"))
+                    .roles(Arrays.asList("CUSTOMER"))
                     .email("Marta@gmail.com")
                     .phone("+36-30-111-111")
                     .address(address1)
