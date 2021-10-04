@@ -36,6 +36,7 @@ public class Customer {
     private String email;
 
     @NotEmpty
+    @Column(unique=true, nullable=false)
     private String username;
 
     @NotEmpty
