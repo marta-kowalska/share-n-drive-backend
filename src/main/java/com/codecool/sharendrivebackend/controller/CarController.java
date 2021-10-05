@@ -39,8 +39,9 @@ public class CarController {
 
     @ResponseStatus
     @PostMapping("/add-car")
-    public void addCar(@RequestBody Car car){
-        carService.saveCarToRent(car);
+    public void addCar(@RequestBody Car car, Authentication authentication){
+        Long customerId = Long.valueOf(authentication.getName());
+        carService.saveCarToRent(car, customerId);
     }
 
     @GetMapping("/fuelTypes")
