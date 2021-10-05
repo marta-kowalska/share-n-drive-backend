@@ -6,6 +6,7 @@ import com.codecool.sharendrivebackend.service.CustomerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,9 +26,10 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping("/bookings/{customerId}")
-    public List<Bookings> getBookingsForCustomer(@PathVariable("customerId") Long customerId) {
-        return customerService.getBookingsByCustomerId(customerId);
+    @GetMapping("/bookings")
+    public List<Bookings> getBookingsForCustomer(Authentication authentication) {
+        Long id = Long.valueOf(authentication.getName());
+        return customerService.getBookingsByCustomerId(id);
     }
 
     @GetMapping("/customer/{customerId}")
