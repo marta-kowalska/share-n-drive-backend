@@ -34,10 +34,6 @@ public class CustomerService {
         bookingsRepository.save(booking);
     }
 
-    public Customer getFirstCustomer() {
-        return  customerRepository.findAll().get(0);
-    }
-
     public void deleteBookingsByCustomerId(Long id) {
         bookingsRepository.deleteById(id);
     }

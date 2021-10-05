@@ -43,14 +43,6 @@ public class CustomerController {
         customerService.saveBooking(booking);
     }
 
-    @GetMapping("/getFirstCustomer")
-    public Customer getCustomer(@RequestHeader Map<String, String> headers) {
-        headers.forEach((key, value) -> {
-            logger.warn(String.format("Header '%s' = %s", key, value));
-        });
-        return customerService.getFirstCustomer();
-    }
-
     @DeleteMapping("/bookings/{id}")
     public void removeBooking(@PathVariable Long id) {
         customerService.deleteBookingsByCustomerId(id);
