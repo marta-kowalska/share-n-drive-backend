@@ -30,7 +30,8 @@ public class CustomerService {
         return customerRepository.findById(id).get();
     }
 
-    public void saveBooking(Bookings booking) {
+    public void saveBooking(Bookings booking, Long customerId) {
+        booking.setCustomer(customerRepository.getById(customerId));
         bookingsRepository.save(booking);
     }
 

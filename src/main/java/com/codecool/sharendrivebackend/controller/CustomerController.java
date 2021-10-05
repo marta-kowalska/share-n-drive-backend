@@ -39,8 +39,9 @@ public class CustomerController {
     }
 
     @PostMapping("/book-car")
-    public void bookCar(@RequestBody Bookings booking) {
-        customerService.saveBooking(booking);
+    public void bookCar(@RequestBody Bookings booking, Authentication authentication) {
+        Long customerId = Long.valueOf(authentication.getName());
+        customerService.saveBooking(booking, customerId);
     }
 
     @DeleteMapping("/bookings/{id}")
