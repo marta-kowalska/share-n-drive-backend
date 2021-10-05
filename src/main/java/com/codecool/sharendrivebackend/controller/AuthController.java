@@ -7,6 +7,8 @@ import com.codecool.sharendrivebackend.security.JwtTokenServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import com.codecool.sharendrivebackend.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -32,9 +34,13 @@ public class AuthController {
 
     public static Logger logger = LoggerFactory.getLogger(AuthController.class);
 
-    public AuthController(AuthenticationManager authenticationManager, JwtTokenServices jwtTokenServices, CustomerRepository users) {
+    private final CustomerService customerService;
+
+    @Autowired
+    public AuthController(AuthenticationManager authenticationManager, JwtTokenServices jwtTokenServices, CustomerRepository users, CustomerService customerService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenServices = jwtTokenServices;
+        this.customerService = customerService;
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -43,6 +49,7 @@ public class AuthController {
         try {
             String username = data.getUsername();
             logger.warn(username);
+            String customerId = customerService.getCustomerIdByUsername(data.getUsername());
             // authenticationManager.authenticate calls loadUserByUsername in CustomUserDetailsService
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
             List<String> roles = authentication.getAuthorities()
@@ -50,7 +57,7 @@ public class AuthController {
                     .map(GrantedAuthority::getAuthority)
                     .collect(Collectors.toList());
 
-            String token = jwtTokenServices.createToken(username, roles);
+            String token = jwtTokenServices.createToken(customerId, roles);
 
             Map<Object, Object> model = new HashMap<>();
             model.put("username", username);

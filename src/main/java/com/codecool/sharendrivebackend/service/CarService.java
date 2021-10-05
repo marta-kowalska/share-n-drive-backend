@@ -2,12 +2,15 @@ package com.codecool.sharendrivebackend.service;
 
 import com.codecool.sharendrivebackend.dao.BookingsRepository;
 import com.codecool.sharendrivebackend.dao.CarRepository;
+import com.codecool.sharendrivebackend.dao.CustomerRepository;
 import com.codecool.sharendrivebackend.model.car.*;
+import com.codecool.sharendrivebackend.model.customer.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -18,11 +21,13 @@ public class CarService {
 
     private final CarRepository carRepository;
     private final BookingsRepository bookingsRepository;
+    private final CustomerRepository customerRepository;
 
     @Autowired
-    public CarService(CarRepository carRepository, BookingsRepository bookingsRepository) {
+    public CarService(CarRepository carRepository, BookingsRepository bookingsRepository, CustomerRepository customerRepository) {
         this.carRepository = carRepository;
         this.bookingsRepository = bookingsRepository;
+        this.customerRepository = customerRepository;
     }
 
     public List<Car> getFeaturedCars() {
@@ -79,8 +84,9 @@ public class CarService {
     }
 
     public int calculatePriceForRentTime(LocalDate from, LocalDate to, Car car) {
-        return 0;
-    } //TODO: think about location for this method
+        int days = (int) ChronoUnit.DAYS.between(from, to);
+        return car.getPrice() * days;
+    }
 
     private Map<String, List<String>> getUniqueParams(Map<String, String> params) {
         Map<String, List<String>> checkedParams = new HashMap<>();
@@ -111,7 +117,8 @@ public class CarService {
         return commonCars;
     }
 
-    public void saveCarToRent(Car car) {
+    public void saveCarToRent(Car car, Long customerId) {
+        car.setCustomer(customerRepository.getById(customerId));
         carRepository.save(car);
     }
 
@@ -141,5 +148,12 @@ public class CarService {
 
     public List<String> getDoorTypes() {
         return carRepository.getDoors();
+    }
+
+
+    public void deleteCar(Long carToDelete, String userId) {
+        Long carId = Long.valueOf(carToDelete);
+        Customer customerId = customerRepository.getById(Long.valueOf(userId));
+        carRepository.removeCarByIdWhereUserIdCorrect(carId, customerId);
     }
 }

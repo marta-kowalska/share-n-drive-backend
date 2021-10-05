@@ -3,10 +3,14 @@ package com.codecool.sharendrivebackend.controller;
 import com.codecool.sharendrivebackend.model.bookings.Bookings;
 import com.codecool.sharendrivebackend.model.customer.Customer;
 import com.codecool.sharendrivebackend.service.CustomerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/share-n-drive")
@@ -15,30 +19,35 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
+    public static Logger logger = LoggerFactory.getLogger(CustomerController.class);
+
     @Autowired
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
     }
 
-    @GetMapping("/bookings/{customerId}")
-    public List<Bookings> getBookingsForCustomer(@PathVariable("customerId") Long customerId) {
-        return customerService.getBookingsByCustomerId(customerId);
+    @GetMapping("/bookings")
+    public List<Bookings> getBookingsForCustomer(Authentication authentication) {
+        Long id = Long.valueOf(authentication.getName());
+        return customerService.getBookingsByCustomerId(id);
     }
 
-    @GetMapping("/customer/{customerId}")
-    public Customer getCustomerById(@PathVariable("customerId") Long customerId) {
+    @GetMapping("/customer-details")
+    public Customer getCustomerById(Authentication authentication) {
+        Long customerId = Long.valueOf(authentication.getName());
         return customerService.findCustomerById(customerId);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/book-car")
-    public void bookCar(@RequestBody Bookings booking) {
-        customerService.saveBooking(booking);
+    public void bookCar(@RequestBody Bookings booking, Authentication authentication) {
+        Long customerId = Long.valueOf(authentication.getName());
+        customerService.saveBooking(booking, customerId);
     }
 
-    @GetMapping("/getFirstCustomer")
-    public Customer getCustomer() {
-        return customerService.getFirstCustomer();
+    @DeleteMapping("/bookings/{id}")
+    public void removeBooking(@PathVariable Long id) {
+        customerService.deleteBookingsByCustomerId(id);
     }
 
     @PostMapping("/register")

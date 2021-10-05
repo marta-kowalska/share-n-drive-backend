@@ -4,6 +4,7 @@ import com.codecool.sharendrivebackend.model.car.*;
 import com.codecool.sharendrivebackend.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,10 +37,11 @@ public class CarController {
         return carService.getFilteredCars(params);
     }
 
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus
     @PostMapping("/add-car")
-    public void addCar(@RequestBody Car car){
-        carService.saveCarToRent(car);
+    public void addCar(@RequestBody Car car, Authentication authentication){
+        Long customerId = Long.valueOf(authentication.getName());
+        carService.saveCarToRent(car, customerId);
     }
 
     @GetMapping("/fuelTypes")
@@ -77,5 +79,8 @@ public class CarController {
         return carService.getBrands();
     }
 
-
+    @DeleteMapping("/remove-car/{id}")
+    public void deleteCar(@PathVariable Long id, Authentication authentication) {
+        carService.deleteCar(id, authentication.getName());
+    }
 }
