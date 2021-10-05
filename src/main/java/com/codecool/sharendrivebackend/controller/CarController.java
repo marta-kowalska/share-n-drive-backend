@@ -4,6 +4,7 @@ import com.codecool.sharendrivebackend.model.car.*;
 import com.codecool.sharendrivebackend.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -78,7 +79,7 @@ public class CarController {
     }
 
     @DeleteMapping("/remove-car/{id}")
-    public void deleteCar(@PathVariable String id) {
-        carService.deleteCar(id);
+    public void deleteCar(@PathVariable Long id, Authentication authentication) {
+        carService.deleteCar(id, authentication.getName());
     }
 }
