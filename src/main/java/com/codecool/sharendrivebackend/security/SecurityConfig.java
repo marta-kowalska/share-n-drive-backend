@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.POST, "/auth/signin").permitAll()
             .antMatchers(HttpMethod.POST, "/share-n-drive/add-car").authenticated()
             .antMatchers(HttpMethod.GET, "/share-n-drive/bookings").authenticated()
-            .antMatchers(HttpMethod.GET, "/share-n-drive/customer/*").authenticated()
+            .antMatchers(HttpMethod.GET, "/share-n-drive/customer-details").authenticated()
             .antMatchers(HttpMethod.POST, "/share-n-drive/book-car").authenticated()
             .antMatchers(HttpMethod.DELETE, "/share-n-drive/remove-car/*").authenticated()
             .and()
