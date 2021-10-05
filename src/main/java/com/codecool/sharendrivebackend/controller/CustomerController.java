@@ -32,8 +32,9 @@ public class CustomerController {
         return customerService.getBookingsByCustomerId(id);
     }
 
-    @GetMapping("/customer/{customerId}")
-    public Customer getCustomerById(@PathVariable("customerId") Long customerId) {
+    @GetMapping("/customer-details")
+    public Customer getCustomerById(Authentication authentication) {
+        Long customerId = Long.valueOf(authentication.getName());
         return customerService.findCustomerById(customerId);
     }
 
