@@ -77,8 +77,7 @@ public class CarController {
         return carService.getBrands();
     }
 
-
-    @RequestMapping(method = RequestMethod.DELETE, value = "/remove-car/{id}")
+    @DeleteMapping("/remove-car/{id}")
     public void deleteCar(@PathVariable String id) {
         carService.deleteCar(id);
     }
