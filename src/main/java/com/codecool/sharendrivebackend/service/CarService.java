@@ -117,7 +117,8 @@ public class CarService {
         return commonCars;
     }
 
-    public void saveCarToRent(Car car) {
+    public void saveCarToRent(Car car, Long customerId) {
+        car.setCustomer(customerRepository.getById(customerId));
         carRepository.save(car);
     }
 
