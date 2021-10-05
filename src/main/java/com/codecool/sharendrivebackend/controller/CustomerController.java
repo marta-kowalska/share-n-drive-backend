@@ -40,5 +40,10 @@ public class CustomerController {
         return customerService.getFirstCustomer();
     }
 
+    @PostMapping("/register")
+    public void register(@RequestBody Customer customer) {
+        customerService.registerNewCustomer(customer);
+    }
+
 
 }
