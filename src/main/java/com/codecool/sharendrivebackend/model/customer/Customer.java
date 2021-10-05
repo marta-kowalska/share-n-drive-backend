@@ -4,6 +4,7 @@ import com.codecool.sharendrivebackend.model.address.Address;
 import com.codecool.sharendrivebackend.model.bookings.Bookings;
 import com.codecool.sharendrivebackend.model.car.Car;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -39,6 +40,7 @@ public class Customer {
     @Column(unique=true, nullable=false)
     private String username;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotEmpty
     private String password;
 
