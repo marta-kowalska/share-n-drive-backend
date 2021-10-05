@@ -1,8 +1,8 @@
 package com.codecool.sharendrivebackend.service;
 
 import com.codecool.sharendrivebackend.dao.BookingsRepository;
-import com.codecool.sharendrivebackend.model.bookings.Bookings;
 import com.codecool.sharendrivebackend.dao.CustomerRepository;
+import com.codecool.sharendrivebackend.model.bookings.Bookings;
 import com.codecool.sharendrivebackend.model.customer.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -35,6 +35,10 @@ public class CustomerService {
     }
 
     public Customer getFirstCustomer() {
-        return  customerRepository.findAll().get(0);
+        return customerRepository.findAll().get(0);
+    }
+
+    public void registerNewCustomer(Customer customer) {
+        customerRepository.save(customer);
     }
 }
