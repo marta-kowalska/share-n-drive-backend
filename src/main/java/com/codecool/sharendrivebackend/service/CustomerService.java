@@ -30,15 +30,16 @@ public class CustomerService {
         return customerRepository.findById(id).get();
     }
 
-    public void saveBooking(Bookings booking) {
+    public void saveBooking(Bookings booking, Long customerId) {
+        booking.setCustomer(customerRepository.getById(customerId));
         bookingsRepository.save(booking);
-    }
-
-    public Customer getFirstCustomer() {
-        return  customerRepository.findAll().get(0);
     }
 
     public void deleteBookingsByCustomerId(Long id) {
         bookingsRepository.deleteById(id);
+    }
+
+    public String getCustomerIdByUsername(String username) {
+        return customerRepository.getIdByCustomerName(username).toString();
     }
 }

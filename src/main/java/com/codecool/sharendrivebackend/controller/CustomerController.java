@@ -6,6 +6,7 @@ import com.codecool.sharendrivebackend.service.CustomerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,27 +26,22 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping("/bookings/{customerId}")
-    public List<Bookings> getBookingsForCustomer(@PathVariable("customerId") Long customerId) {
-        return customerService.getBookingsByCustomerId(customerId);
+    @GetMapping("/bookings")
+    public List<Bookings> getBookingsForCustomer(Authentication authentication) {
+        Long id = Long.valueOf(authentication.getName());
+        return customerService.getBookingsByCustomerId(id);
     }
 
-    @GetMapping("/customer/{customerId}")
-    public Customer getCustomerById(@PathVariable("customerId") Long customerId) {
+    @GetMapping("/customer-details")
+    public Customer getCustomerById(Authentication authentication) {
+        Long customerId = Long.valueOf(authentication.getName());
         return customerService.findCustomerById(customerId);
     }
 
     @PostMapping("/book-car")
-    public void bookCar(@RequestBody Bookings booking) {
-        customerService.saveBooking(booking);
-    }
-
-    @GetMapping("/getFirstCustomer")
-    public Customer getCustomer(@RequestHeader Map<String, String> headers) {
-        headers.forEach((key, value) -> {
-            logger.warn(String.format("Header '%s' = %s", key, value));
-        });
-        return customerService.getFirstCustomer();
+    public void bookCar(@RequestBody Bookings booking, Authentication authentication) {
+        Long customerId = Long.valueOf(authentication.getName());
+        customerService.saveBooking(booking, customerId);
     }
 
     @DeleteMapping("/bookings/{id}")

@@ -2,7 +2,9 @@ package com.codecool.sharendrivebackend.service;
 
 import com.codecool.sharendrivebackend.dao.BookingsRepository;
 import com.codecool.sharendrivebackend.dao.CarRepository;
+import com.codecool.sharendrivebackend.dao.CustomerRepository;
 import com.codecool.sharendrivebackend.model.car.*;
+import com.codecool.sharendrivebackend.model.customer.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,11 +21,13 @@ public class CarService {
 
     private final CarRepository carRepository;
     private final BookingsRepository bookingsRepository;
+    private final CustomerRepository customerRepository;
 
     @Autowired
-    public CarService(CarRepository carRepository, BookingsRepository bookingsRepository) {
+    public CarService(CarRepository carRepository, BookingsRepository bookingsRepository, CustomerRepository customerRepository) {
         this.carRepository = carRepository;
         this.bookingsRepository = bookingsRepository;
+        this.customerRepository = customerRepository;
     }
 
     public List<Car> getFeaturedCars() {
@@ -113,7 +117,8 @@ public class CarService {
         return commonCars;
     }
 
-    public void saveCarToRent(Car car) {
+    public void saveCarToRent(Car car, Long customerId) {
+        car.setCustomer(customerRepository.getById(customerId));
         carRepository.save(car);
     }
 
@@ -145,7 +150,10 @@ public class CarService {
         return carRepository.getDoors();
     }
 
-    public void deleteCar(String id) {
-        carRepository.deleteById(Long.valueOf(id));
+
+    public void deleteCar(Long carToDelete, String userId) {
+        Long carId = Long.valueOf(carToDelete);
+        Customer customerId = customerRepository.getById(Long.valueOf(userId));
+        carRepository.removeCarByIdWhereUserIdCorrect(carId, customerId);
     }
 }
