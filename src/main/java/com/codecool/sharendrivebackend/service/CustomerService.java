@@ -1,12 +1,15 @@
 package com.codecool.sharendrivebackend.service;
 
 import com.codecool.sharendrivebackend.dao.BookingsRepository;
-import com.codecool.sharendrivebackend.model.bookings.Bookings;
 import com.codecool.sharendrivebackend.dao.CustomerRepository;
+import com.codecool.sharendrivebackend.model.bookings.Bookings;
 import com.codecool.sharendrivebackend.model.customer.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -14,6 +17,7 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final BookingsRepository bookingsRepository;
+    PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
     @Autowired
     public CustomerService(CustomerRepository customerRepository, BookingsRepository bookingsRepository) {
@@ -41,5 +45,18 @@ public class CustomerService {
 
     public String getCustomerIdByUsername(String username) {
         return customerRepository.getIdByCustomerName(username).toString();
+    }
+
+    public void registerNewCustomer(Customer customer) {
+        Customer newCustomer = Customer.builder()
+                .firstName("")
+                .lastName("")
+                .username(customer.getUsername())
+                .password(passwordEncoder.encode(customer.getPassword()))
+                .roles(Arrays.asList("CUSTOMER"))
+                .email(customer.getEmail())
+                .phone("")
+                .build();
+        customerRepository.save(newCustomer);
     }
 }
