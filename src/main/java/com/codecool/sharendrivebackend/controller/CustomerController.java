@@ -30,6 +30,7 @@ public class CustomerController {
         return customerService.findCustomerById(customerId);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/book-car")
     public void bookCar(@RequestBody Bookings booking) {
         customerService.saveBooking(booking);
