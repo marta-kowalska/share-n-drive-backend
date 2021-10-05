@@ -36,7 +36,6 @@ public class CarController {
         return carService.getFilteredCars(params);
     }
 
-    @ResponseStatus
     @PostMapping("/add-car")
     public void addCar(@RequestBody Car car, Authentication authentication){
         Long customerId = Long.valueOf(authentication.getName());
