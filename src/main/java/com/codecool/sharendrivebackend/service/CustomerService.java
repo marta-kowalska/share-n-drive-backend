@@ -41,4 +41,8 @@ public class CustomerService {
     public void deleteBookingsByCustomerId(Long id) {
         bookingsRepository.deleteById(id);
     }
+
+    public String getCustomerIdByUsername(String username) {
+        return customerRepository.getIdByCustomerName(username).toString();
+    }
 }
