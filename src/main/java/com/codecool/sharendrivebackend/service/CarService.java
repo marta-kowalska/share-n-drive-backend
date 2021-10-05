@@ -17,8 +17,6 @@ import java.util.stream.Collectors;
 @Component
 public class CarService {
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
     private final CarRepository carRepository;
     private final BookingsRepository bookingsRepository;
     private final CustomerRepository customerRepository;
@@ -42,7 +40,7 @@ public class CarService {
 
         List<Car> foundCars = new ArrayList<>();
         Map<String, List<String>> checkedParams = getUniqueParams(params);
-        for (String key : params.keySet()) {
+        for (String key : checkedParams.keySet()) {
             switch (key) {
                 case "brand":
                     foundCars.addAll(carRepository.findCarsByStringValue(checkedParams.get(key), "brand"));
@@ -58,9 +56,9 @@ public class CarService {
                     int minSeatNumber = Integer.parseInt((checkedParams.get(key)).get(0));
                     foundCars.addAll(carRepository.findBySeatNumberGreaterThanEqual(minSeatNumber));
                     break;
-                case "from":
-                    LocalDate from = LocalDate.parse(params.get("from"), formatter);
-                    LocalDate to = LocalDate.parse(params.get("to"), formatter);
+                case "rentFrom":
+                    LocalDate from = LocalDate.parse(params.get("rentFrom"));
+                    LocalDate to = LocalDate.parse(params.get("rentTo"));
                     foundCars.addAll(bookingsRepository.getCarsByDates(from, to));
                     break;
                 case "fuelType":
@@ -101,8 +99,11 @@ public class CarService {
     }
 
     private void checkFromToParams(Map<String, List<String>> checkedParams) {
-        if (checkedParams.containsKey("from") && !checkedParams.containsKey("to")) {
-            checkedParams.remove("from");
+        if (checkedParams.containsKey("rentFrom") && !checkedParams.containsKey("rentTo")) {
+            checkedParams.remove("rentFrom");
+        }
+        if (checkedParams.containsKey("rentTo") && !checkedParams.containsKey("rentFrom")) {
+            checkedParams.remove("rentTo");
         }
     }
 
