@@ -3,14 +3,12 @@ package com.codecool.sharendrivebackend.controller;
 import com.codecool.sharendrivebackend.model.bookings.Bookings;
 import com.codecool.sharendrivebackend.model.customer.Customer;
 import com.codecool.sharendrivebackend.service.CustomerService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
+
 
 @RestController
 @RequestMapping("/share-n-drive")
@@ -18,8 +16,6 @@ import java.util.Map;
 public class CustomerController {
 
     private final CustomerService customerService;
-
-    public static Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
     @Autowired
     public CustomerController(CustomerService customerService) {
@@ -38,7 +34,6 @@ public class CustomerController {
         return customerService.findCustomerById(customerId);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/book-car")
     public void bookCar(@RequestBody Bookings booking, Authentication authentication) {
         Long customerId = Long.valueOf(authentication.getName());

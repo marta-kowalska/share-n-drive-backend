@@ -4,8 +4,6 @@ package com.codecool.sharendrivebackend.controller;
 import com.codecool.sharendrivebackend.dao.CustomerRepository;
 import com.codecool.sharendrivebackend.model.customer.CustomerCredentials;
 import com.codecool.sharendrivebackend.security.JwtTokenServices;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import com.codecool.sharendrivebackend.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +30,6 @@ public class AuthController {
 
     private final JwtTokenServices jwtTokenServices;
 
-    public static Logger logger = LoggerFactory.getLogger(AuthController.class);
-
     private final CustomerService customerService;
 
     @Autowired
@@ -48,7 +44,6 @@ public class AuthController {
     public ResponseEntity signin(@RequestBody CustomerCredentials data) {
         try {
             String username = data.getUsername();
-            logger.warn(username);
             String customerId = customerService.getCustomerIdByUsername(data.getUsername());
             // authenticationManager.authenticate calls loadUserByUsername in CustomUserDetailsService
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
