@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -79,8 +80,9 @@ public class CarService {
     }
 
     public int calculatePriceForRentTime(LocalDate from, LocalDate to, Car car) {
-        return 0;
-    } //TODO: think about location for this method
+        int days = (int) ChronoUnit.DAYS.between(from, to);
+        return car.getPrice() * days;
+    }
 
     private Map<String, List<String>> getUniqueParams(Map<String, String> params) {
         Map<String, List<String>> checkedParams = new HashMap<>();
@@ -141,5 +143,9 @@ public class CarService {
 
     public List<String> getDoorTypes() {
         return carRepository.getDoors();
+    }
+
+    public void deleteCar(String id) {
+        carRepository.deleteById(Long.valueOf(id));
     }
 }

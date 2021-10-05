@@ -40,5 +40,9 @@ public class CustomerController {
         return customerService.getFirstCustomer();
     }
 
+    @DeleteMapping("/bookings/{id}")
+    public void removeBooking(@PathVariable Long id) {
+        customerService.deleteBookingsByCustomerId(id);
+    }
 
 }

@@ -36,7 +36,7 @@ public class CarController {
         return carService.getFilteredCars(params);
     }
 
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus
     @PostMapping("/add-car")
     public void addCar(@RequestBody Car car){
         carService.saveCarToRent(car);
@@ -78,4 +78,8 @@ public class CarController {
     }
 
 
+    @RequestMapping(method = RequestMethod.DELETE, value = "/remove-car/{id}")
+    public void deleteCar(@PathVariable String id) {
+        carService.deleteCar(id);
+    }
 }

@@ -4,6 +4,11 @@ import com.codecool.sharendrivebackend.dao.CarRepository;
 import com.codecool.sharendrivebackend.dao.CustomerRepository;
 import com.codecool.sharendrivebackend.model.address.Address;
 import com.codecool.sharendrivebackend.model.car.*;
+import com.codecool.sharendrivebackend.model.bookings.Bookings;
+import com.codecool.sharendrivebackend.model.car.BodyType;
+import com.codecool.sharendrivebackend.model.car.Car;
+import com.codecool.sharendrivebackend.model.car.CarType;
+import com.codecool.sharendrivebackend.model.car.FuelType;
 import com.codecool.sharendrivebackend.model.customer.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -15,6 +20,9 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Arrays;
+
+import java.time.LocalDate;
+import java.util.Collections;
 
 @SpringBootApplication
 public class ShareNDriveBackendApplication {
