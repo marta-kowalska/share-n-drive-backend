@@ -4,6 +4,7 @@ import com.codecool.sharendrivebackend.model.car.*;
 import com.codecool.sharendrivebackend.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class CarController {
     private final CarService carService;
 
     @Autowired
-    public CarController(CarService carService){
+    public CarController(CarService carService) {
         this.carService = carService;
     }
 
@@ -31,13 +32,15 @@ public class CarController {
         return carService.getAllCars();
     }
 
-    @RequestMapping(value="/filter", method = RequestMethod.GET)
-    public List<Car> getParams(@RequestParam Map<String, String> params ) {
+    @RequestMapping(value = "/filter", method = RequestMethod.GET)
+    public List<Car> getParams(@RequestParam Map<String, String> params) {
+        String customer = SecurityContextHolder.getContext().getAuthentication().getName();
+        params.put("customerId", customer);
         return carService.getFilteredCars(params);
     }
 
     @PostMapping("/add-car")
-    public void addCar(@RequestBody Car car, Authentication authentication){
+    public void addCar(@RequestBody Car car, Authentication authentication) {
         Long customerId = Long.valueOf(authentication.getName());
         carService.saveCarToRent(car, customerId);
     }
