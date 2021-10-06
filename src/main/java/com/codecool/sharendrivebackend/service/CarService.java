@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -76,6 +75,11 @@ public class CarService {
                 case "transmission":
                     foundCars.addAll(carRepository.findCarsByTransmissionType(checkedParams.get(key)));
                     break;
+                case "customerId":
+                    String user = checkedParams.get(key).get(0);
+                    Long customerId = Long.valueOf(user);
+                    Customer c = customerRepository.findById(customerId).get();
+                    foundCars.addAll(carRepository.getAllCarsNotBelongingToCustomer(c));
             }
         }
         return (checkedParams.keySet().size() == 1 ? foundCars : getCommonElements(foundCars));
@@ -95,6 +99,7 @@ public class CarService {
             checkedParams.put(param, values);
         }
         checkFromToParams(checkedParams);
+        removeCustomerIfAnonymous(checkedParams);
         return checkedParams;
     }
 
@@ -104,6 +109,13 @@ public class CarService {
         }
         if (checkedParams.containsKey("rentTo") && !checkedParams.containsKey("rentFrom")) {
             checkedParams.remove("rentTo");
+        }
+    }
+
+    private void removeCustomerIfAnonymous(Map<String, List<String>> checkedParams){
+        String user = checkedParams.get("customerId").get(0);
+        if(user.equals("anonymousUser")){
+            checkedParams.remove("customerId");
         }
     }
 
