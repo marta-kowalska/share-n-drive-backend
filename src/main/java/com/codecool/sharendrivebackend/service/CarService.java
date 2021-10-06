@@ -31,12 +31,11 @@ public class CarService {
         return null;
     }
 
-    public List<Car> getAllCars() {
-        return carRepository.findAll();
+    public List<Car> getAllCars(String customer) {
+        return filterByCustomer(customer, carRepository.findAll());
     }
 
     public List<Car> getFilteredCars(Map<String, String> params) {
-
         List<Car> foundCars = new ArrayList<>();
         Map<String, List<String>> checkedParams = getUniqueParams(params);
         for (String key : checkedParams.keySet()) {
@@ -75,14 +74,20 @@ public class CarService {
                 case "transmission":
                     foundCars.addAll(carRepository.findCarsByTransmissionType(checkedParams.get(key)));
                     break;
-                case "customerId":
-                    String user = checkedParams.get(key).get(0);
-                    Long customerId = Long.valueOf(user);
-                    Customer c = customerRepository.findById(customerId).get();
-                    foundCars.addAll(carRepository.getAllCarsNotBelongingToCustomer(c));
             }
         }
-        return (checkedParams.keySet().size() == 1 ? foundCars : getCommonElements(foundCars));
+        List<Car> filteredCars = (checkedParams.keySet().size() == 2 ? foundCars : getCommonElements(foundCars));
+        return filterByCustomer(checkedParams.get("customerId").get(0), filteredCars);
+    }
+
+    private List<Car> filterByCustomer(String user, List<Car> filteredCars) {
+        if (!user.equals("anonymousUser")) {
+            Long customerId = Long.valueOf(user);
+            Customer c = customerRepository.findById(customerId).get();
+            filteredCars.addAll(carRepository.getAllCarsNotBelongingToCustomer(c));
+            filteredCars = getCommonElements(filteredCars);
+        }
+        return filteredCars;
     }
 
     public int calculatePriceForRentTime(LocalDate from, LocalDate to, Car car) {
@@ -99,7 +104,6 @@ public class CarService {
             checkedParams.put(param, values);
         }
         checkFromToParams(checkedParams);
-        removeCustomerIfAnonymous(checkedParams);
         return checkedParams;
     }
 
@@ -109,13 +113,6 @@ public class CarService {
         }
         if (checkedParams.containsKey("rentTo") && !checkedParams.containsKey("rentFrom")) {
             checkedParams.remove("rentTo");
-        }
-    }
-
-    private void removeCustomerIfAnonymous(Map<String, List<String>> checkedParams){
-        String user = checkedParams.get("customerId").get(0);
-        if(user.equals("anonymousUser")){
-            checkedParams.remove("customerId");
         }
     }
 
