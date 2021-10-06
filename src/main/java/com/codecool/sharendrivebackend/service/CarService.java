@@ -27,10 +27,6 @@ public class CarService {
         this.customerRepository = customerRepository;
     }
 
-    public List<Car> getFeaturedCars() {
-        return null;
-    }
-
     public List<Car> getAllCars(String customer) {
         return filterByCustomer(customer, carRepository.findAll());
     }
@@ -110,9 +106,6 @@ public class CarService {
     private void checkFromToParams(Map<String, List<String>> checkedParams) {
         if (checkedParams.containsKey("rentFrom") && !checkedParams.containsKey("rentTo")) {
             checkedParams.remove("rentFrom");
-        }
-        if (checkedParams.containsKey("rentTo") && !checkedParams.containsKey("rentFrom")) {
-            checkedParams.remove("rentTo");
         }
     }
 

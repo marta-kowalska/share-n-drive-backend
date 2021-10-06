@@ -22,11 +22,6 @@ public class CarController {
         this.carService = carService;
     }
 
-    @GetMapping("/featured")
-    public List<Car> getFeaturedCars() {
-        return carService.getFeaturedCars();
-    }
-
     @GetMapping("/filter/all")
     public List<Car> getAllCars() {
         String customer = SecurityContextHolder.getContext().getAuthentication().getName();
