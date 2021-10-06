@@ -23,7 +23,7 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CUSTOMER_GENERATOR")
-    @SequenceGenerator(name="CUSTOMER_GENERATOR")
+    @SequenceGenerator(name = "CUSTOMER_GENERATOR")
     private Long id;
 
     @Singular
@@ -33,12 +33,14 @@ public class Customer {
 
     private String firstName;
 
+    private int avatar;
+
     private String lastName;
     private String phone;
     private String email;
 
     @NotEmpty
-    @Column(unique=true, nullable=false)
+    @Column(unique = true, nullable = false)
     private String username;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

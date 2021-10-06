@@ -4,11 +4,6 @@ import com.codecool.sharendrivebackend.dao.CarRepository;
 import com.codecool.sharendrivebackend.dao.CustomerRepository;
 import com.codecool.sharendrivebackend.model.address.Address;
 import com.codecool.sharendrivebackend.model.car.*;
-import com.codecool.sharendrivebackend.model.bookings.Bookings;
-import com.codecool.sharendrivebackend.model.car.BodyType;
-import com.codecool.sharendrivebackend.model.car.Car;
-import com.codecool.sharendrivebackend.model.car.CarType;
-import com.codecool.sharendrivebackend.model.car.FuelType;
 import com.codecool.sharendrivebackend.model.customer.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -20,9 +15,6 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Arrays;
-
-import java.time.LocalDate;
-import java.util.Collections;
 
 @SpringBootApplication
 public class ShareNDriveBackendApplication {
@@ -238,9 +230,10 @@ public class ShareNDriveBackendApplication {
             Address address2 = Address.builder().city("Debrecen").zipCode(1111).street("Nagymezo").house("44").build();
 
             Customer customer = Customer.builder()
-                .firstName("Marta")
-                .lastName("Kowalska")
-                .username("Marta")
+                    .firstName("Marta")
+                    .lastName("Kowalska")
+                    .username("Marta")
+                    .avatar(2)
                 .password(passwordEncoder.encode("password"))
                 .roles(Arrays.asList("CUSTOMER"))
                 .email("Marta@gmail.com")
@@ -252,9 +245,10 @@ public class ShareNDriveBackendApplication {
                 .build();
 
             Customer customer2 = Customer.builder()
-                .firstName("Norbi")
-                .lastName("Ruff")
-                .username("Norbi")
+                    .firstName("Norbi")
+                    .lastName("Ruff")
+                    .username("Norbi")
+                    .avatar(3)
                 .password(passwordEncoder.encode("password"))
                 .roles(Arrays.asList("CUSTOMER"))
                 .email("norbi@gmail.com")
