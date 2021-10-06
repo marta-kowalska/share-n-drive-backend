@@ -29,7 +29,8 @@ public class CarController {
 
     @GetMapping("/filter/all")
     public List<Car> getAllCars() {
-        return carService.getAllCars();
+        String customer = SecurityContextHolder.getContext().getAuthentication().getName();
+        return carService.getAllCars(customer);
     }
 
     @RequestMapping(value = "/filter", method = RequestMethod.GET)
