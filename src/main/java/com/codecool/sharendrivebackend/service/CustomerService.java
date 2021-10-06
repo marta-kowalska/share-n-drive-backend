@@ -52,6 +52,7 @@ public class CustomerService {
                 .firstName("")
                 .lastName("")
                 .username(customer.getUsername())
+                .avatar(customer.getAvatar())
                 .password(passwordEncoder.encode(customer.getPassword()))
                 .roles(Arrays.asList("CUSTOMER"))
                 .email(customer.getEmail())
