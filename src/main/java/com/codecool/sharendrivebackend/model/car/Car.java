@@ -17,7 +17,8 @@ import java.util.Set;
 @JsonIgnoreProperties(value = { "bookings" })
 public class Car {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CAR_GENERATOR")
+    @SequenceGenerator(name="CAR_GENERATOR")
     private Long id;
 
     @Enumerated(EnumType.STRING)
