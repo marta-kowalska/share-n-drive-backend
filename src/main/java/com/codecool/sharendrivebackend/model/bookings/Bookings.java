@@ -17,7 +17,8 @@ import java.util.List;
 public class Bookings {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="BOOKING_GENERATOR")
+    @SequenceGenerator(name="BOOKING_GENERATOR")
     private Long id;
 
     private LocalDate rentFrom;
