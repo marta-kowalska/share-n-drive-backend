@@ -28,11 +28,20 @@ public class CustomerController {
         return customerService.getBookingsByCustomerId(id);
     }
 
+    @GetMapping("/get-all-bookings-for-user")
+    public List<Bookings> getBookingsForCar(Authentication authentication) {
+        Long id = Long.valueOf(authentication.getName());
+        Customer customer = customerService.findCustomerById(id);
+        return customerService.getAllBookingsForCustomerCars(customer);
+
+    }
+
     @GetMapping("/customer-details")
     public Customer getCustomerById(Authentication authentication) {
         Long customerId = Long.valueOf(authentication.getName());
         return customerService.findCustomerById(customerId);
     }
+
 
     @PostMapping("/book-car")
     public void bookCar(@RequestBody Bookings booking, Authentication authentication) {

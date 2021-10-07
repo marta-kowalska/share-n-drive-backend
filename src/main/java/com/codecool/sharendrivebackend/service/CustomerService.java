@@ -64,4 +64,8 @@ public class CustomerService {
         address.setCustomer(newCustomer);
         customerRepository.save(newCustomer);
     }
+
+    public List<Bookings> getAllBookingsForCustomerCars(Customer customer) {
+        return bookingsRepository.findAllBookingsForCustomerCars(customer);
+    }
 }
