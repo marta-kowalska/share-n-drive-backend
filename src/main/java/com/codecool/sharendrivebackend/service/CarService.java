@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -28,16 +27,11 @@ public class CarService {
         this.customerRepository = customerRepository;
     }
 
-    public List<Car> getFeaturedCars() {
-        return null;
-    }
-
-    public List<Car> getAllCars() {
-        return carRepository.findAll();
+    public List<Car> getAllCars(String customer) {
+        return filterByCustomer(customer, carRepository.findAll());
     }
 
     public List<Car> getFilteredCars(Map<String, String> params) {
-
         List<Car> foundCars = new ArrayList<>();
         Map<String, List<String>> checkedParams = getUniqueParams(params);
         for (String key : checkedParams.keySet()) {
@@ -78,7 +72,18 @@ public class CarService {
                     break;
             }
         }
-        return (checkedParams.keySet().size() == 1 ? foundCars : getCommonElements(foundCars));
+        List<Car> filteredCars = (checkedParams.keySet().size() == 2 ? foundCars : getCommonElements(foundCars));
+        return filterByCustomer(checkedParams.get("customerId").get(0), filteredCars);
+    }
+
+    private List<Car> filterByCustomer(String user, List<Car> filteredCars) {
+        if (!user.equals("anonymousUser")) {
+            Long customerId = Long.valueOf(user);
+            Customer c = customerRepository.findById(customerId).get();
+            filteredCars.addAll(carRepository.getAllCarsNotBelongingToCustomer(c));
+            filteredCars = getCommonElements(filteredCars);
+        }
+        return filteredCars;
     }
 
     public int calculatePriceForRentTime(LocalDate from, LocalDate to, Car car) {
@@ -101,9 +106,6 @@ public class CarService {
     private void checkFromToParams(Map<String, List<String>> checkedParams) {
         if (checkedParams.containsKey("rentFrom") && !checkedParams.containsKey("rentTo")) {
             checkedParams.remove("rentFrom");
-        }
-        if (checkedParams.containsKey("rentTo") && !checkedParams.containsKey("rentFrom")) {
-            checkedParams.remove("rentTo");
         }
     }
 
