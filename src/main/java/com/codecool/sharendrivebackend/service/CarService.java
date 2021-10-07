@@ -32,56 +32,29 @@ public class CarService {
     }
 
     public List<Car> getFilteredCars(Map<String, String> params) {
-        List<Car> foundCars = new ArrayList<>();
         Map<String, List<String>> checkedParams = getUniqueParams(params);
-        for (String key : checkedParams.keySet()) {
-            switch (key) {
-                case "brand":
-                    foundCars.addAll(carRepository.findCarsByStringValue(checkedParams.get(key), "brand"));
-                    break;
-                case "color":
-                    foundCars.addAll(carRepository.findCarsByStringValue(checkedParams.get(key), "color"));
-                    break;
-                case "price":
-                    int maxPrice = Integer.parseInt((checkedParams.get(key)).get(0));
-                    foundCars.addAll(carRepository.findByPriceLessThanEqual(maxPrice));
-                    break;
-                case "seatNumber":
-                    int minSeatNumber = Integer.parseInt((checkedParams.get(key)).get(0));
-                    foundCars.addAll(carRepository.findBySeatNumberGreaterThanEqual(minSeatNumber));
-                    break;
-                case "rentFrom":
-                    LocalDate from = LocalDate.parse(params.get("rentFrom"));
-                    LocalDate to = LocalDate.parse(params.get("rentTo"));
-                    foundCars.addAll(bookingsRepository.getCarsByDates(from, to));
-                    break;
-                case "fuelType":
-                    foundCars.addAll(carRepository.findCarsByFuelType(checkedParams.get(key)));
-                    break;
-                case "bodyType":
-                    foundCars.addAll(carRepository.findCarsByBodyType(checkedParams.get(key)));
-                    break;
-                case "carType":
-                    foundCars.addAll(carRepository.findCarsByCarType(checkedParams.get(key)));
-                    break;
-                case "doors":
-                    foundCars.addAll(carRepository.findByDoorsEquals(Integer.parseInt((checkedParams.get(key)).get(0))));
-                    break;
-                case "transmission":
-                    foundCars.addAll(carRepository.findCarsByTransmissionType(checkedParams.get(key)));
-                    break;
-            }
+        List<Car> carsByCriteria = carRepository.findCarsByCriteria(checkedParams);
+        if (checkedParams.containsKey("rentFrom")) {
+            List<Car> carsByDate = filterByDate(checkedParams);
+            carsByCriteria.addAll(carsByDate);
+            carsByCriteria = getCommonElements(carsByCriteria);
         }
-        List<Car> filteredCars = (checkedParams.keySet().size() == 2 ? foundCars : getCommonElements(foundCars));
-        return filterByCustomer(checkedParams.get("customerId").get(0), filteredCars);
+        return filterByCustomer(checkedParams.get("customerId").get(0), carsByCriteria);
+    }
+
+    private List<Car> filterByDate(Map<String, List<String>> params) {
+        LocalDate from = LocalDate.parse(params.get("rentFrom").get(0));
+        LocalDate to = LocalDate.parse(params.get("rentTo").get(0));
+        return bookingsRepository.getCarsByDates(from, to);
     }
 
     private List<Car> filterByCustomer(String user, List<Car> filteredCars) {
         if (!user.equals("anonymousUser")) {
             Long customerId = Long.valueOf(user);
             Customer c = customerRepository.findById(customerId).get();
-            filteredCars.addAll(carRepository.getAllCarsNotBelongingToCustomer(c));
-            filteredCars = getCommonElements(filteredCars);
+            for (Car car : c.getCars()) {
+                filteredCars.remove(car);
+            }
         }
         return filteredCars;
     }
