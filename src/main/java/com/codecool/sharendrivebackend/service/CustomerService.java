@@ -10,6 +10,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,8 +37,20 @@ public class CustomerService {
     }
 
     public void saveBooking(Bookings booking, Long customerId) {
-        booking.setCustomer(customerRepository.getById(customerId));
-        bookingsRepository.save(booking);
+        LocalDate today = LocalDate.now();
+
+        if (booking.getRentTo() == null || booking.getRentFrom() == null) {
+            Bookings newBooking = Bookings.builder()
+                    .car(booking.getCar())
+                    .rentFrom(today)
+                    .rentTo(today)
+                    .customer(customerRepository.getById(customerId))
+                    .build();
+            bookingsRepository.save(newBooking);
+        } else {
+            booking.setCustomer(customerRepository.getById(customerId));
+            bookingsRepository.save(booking);
+        }
     }
 
     public void deleteBookingsByCustomerId(Long id) {
