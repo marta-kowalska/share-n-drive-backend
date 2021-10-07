@@ -2,6 +2,7 @@ package com.codecool.sharendrivebackend.service;
 
 import com.codecool.sharendrivebackend.dao.BookingsRepository;
 import com.codecool.sharendrivebackend.dao.CustomerRepository;
+import com.codecool.sharendrivebackend.model.address.Address;
 import com.codecool.sharendrivebackend.model.bookings.Bookings;
 import com.codecool.sharendrivebackend.model.customer.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,7 @@ public class CustomerService {
     }
 
     public void registerNewCustomer(Customer customer) {
+        Address address = Address.builder().city("").zipCode(0).street("").house("").build();
         Customer newCustomer = Customer.builder()
                 .firstName("")
                 .lastName("")
@@ -56,8 +58,10 @@ public class CustomerService {
                 .password(passwordEncoder.encode(customer.getPassword()))
                 .roles(Arrays.asList("CUSTOMER"))
                 .email(customer.getEmail())
+                .address(address)
                 .phone("")
                 .build();
+        address.setCustomer(newCustomer);
         customerRepository.save(newCustomer);
     }
 }
