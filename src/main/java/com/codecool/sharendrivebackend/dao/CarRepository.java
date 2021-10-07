@@ -32,6 +32,4 @@ public interface CarRepository extends JpaRepository<Car, Long>, CarRepositoryCu
     @Query("delete from Car c where c.id = :carId and c.customer = :userId")
     void removeCarByIdWhereUserIdCorrect(@Param("carId") Long carId, @Param("userId") Customer userId);
 
-    @Query("select c from Car c where c.customer <> :customerId or c.customer is null")
-    List<Car> getAllCarsNotBelongingToCustomer(@Param("customerId") Customer customerId);
 }
