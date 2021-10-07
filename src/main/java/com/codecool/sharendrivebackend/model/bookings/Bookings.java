@@ -21,9 +21,9 @@ public class Bookings {
     @GeneratedValue
     private Long id;
 
-    private String rentFrom;
+    private LocalDate rentFrom;
 
-    private String rentTo;
+    private LocalDate rentTo;
 
     @ManyToOne
     @ToString.Exclude
