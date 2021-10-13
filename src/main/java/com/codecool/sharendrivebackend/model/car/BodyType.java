@@ -23,4 +23,8 @@ public enum BodyType {
         }
         return null;
     }
+
+    public String getName() {
+        return name;
+    }
 }

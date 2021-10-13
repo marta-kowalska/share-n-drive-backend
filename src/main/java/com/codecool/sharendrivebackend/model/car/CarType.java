@@ -25,4 +25,8 @@ public enum CarType {
         }
         return null;
     }
+
+    public String getName() {
+        return name;
+    }
 }

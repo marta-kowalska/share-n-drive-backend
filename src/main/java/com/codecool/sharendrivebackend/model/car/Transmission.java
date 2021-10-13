@@ -18,5 +18,9 @@ public enum Transmission {
         }
         return null;
     }
+
+    public String getName() {
+        return name;
+    }
 }
 
