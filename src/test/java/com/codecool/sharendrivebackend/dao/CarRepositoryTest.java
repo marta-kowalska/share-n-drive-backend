@@ -35,7 +35,7 @@ class CarRepositoryTest {
     public void saveOneCar() {
         Car volkswagen = Car.builder()
                 .seatNumber(5)
-                .fuelType(FuelType.ELECTRIC)
+                .fuelTypeEnum(FuelType.ELECTRIC)
                 .brand("Volkswagen")
                 .build();
 
@@ -47,7 +47,7 @@ class CarRepositoryTest {
     public void theLicencePlatesAreUniqueForEachCar() {
         Car car1 = Car.builder()
                 .seatNumber(5)
-                .fuelType(FuelType.ELECTRIC)
+                .fuelTypeEnum(FuelType.ELECTRIC)
                 .brand("Volkswagen")
                 .licencePlate("NNN-111")
                 .build();
@@ -56,7 +56,7 @@ class CarRepositoryTest {
 
         Car car2 = Car.builder()
                 .seatNumber(2)
-                .fuelType(FuelType.DIESEL)
+                .fuelTypeEnum(FuelType.DIESEL)
                 .brand("BMW")
                 .licencePlate("NOM-111")
                 .build();

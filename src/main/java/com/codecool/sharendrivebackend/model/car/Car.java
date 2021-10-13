@@ -14,7 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@JsonIgnoreProperties(value = { "bookings" })
+@JsonIgnoreProperties(value = { "bookings",  "fuelTypeEnum", "carTypeEnum", "bodyTypeEnum", "transmissionEnum"})
 public class Car {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CAR_GENERATOR")
@@ -75,7 +75,7 @@ public class Car {
         if (bodyTypeEnum != null) {
             this.bodyType = bodyTypeEnum.getName();
         }
-        if (transmission != null) {
+        if (transmissionEnum != null) {
             this.transmission = transmissionEnum.getName();
         }
     }
