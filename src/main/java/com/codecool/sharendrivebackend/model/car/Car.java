@@ -21,24 +21,64 @@ public class Car {
     @SequenceGenerator(name="CAR_GENERATOR")
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private CarType carType;
-
     private int seatNumber;
 
     private String color;
 
-    @Enumerated(EnumType.STRING)
-    private BodyType bodyType;
-
-    @Enumerated(EnumType.STRING)
-    private Transmission transmission;
-
     @Column(unique = true)
     private String licencePlate;
 
-    @Enumerated(EnumType.STRING)
-    private FuelType fuelType;
+    @Basic
+    private String fuelType;
+    @Transient
+    private FuelType fuelTypeEnum;
+
+    @Basic
+    private String carType;
+    @Transient
+    private CarType carTypeEnum;
+
+    @Basic
+    private String bodyType;
+    @Transient
+    private BodyType bodyTypeEnum;
+
+    @Basic
+    private String transmission;
+    @Transient
+    private Transmission transmissionEnum;
+
+    @PostLoad
+    void fillTransient() {
+        if (fuelType == null) {
+            this.fuelTypeEnum = FuelType.getTypeByName(fuelType);
+        }
+        if (carType == null) {
+            this.carTypeEnum = CarType.getTypeByName(carType);
+        }
+        if (bodyType == null) {
+            this.bodyTypeEnum = BodyType.getTypeByName(bodyType);
+        }
+        if (transmission == null) {
+            this.transmissionEnum = Transmission.getTypeByName(transmission);
+        }
+    }
+
+    @PrePersist
+    void fillPersistent() {
+        if (fuelTypeEnum != null) {
+            this.fuelType = fuelTypeEnum.getName();
+        }
+        if (carTypeEnum != null) {
+            this.carType = carTypeEnum.getName();
+        }
+        if (bodyTypeEnum != null) {
+            this.bodyType = bodyTypeEnum.getName();
+        }
+        if (transmission != null) {
+            this.transmission = transmissionEnum.getName();
+        }
+    }
 
     private int price;
 
