@@ -70,7 +70,6 @@ public class CarRepositoryCustomImpl implements CarRepositoryCustom {
                     int minSeatNumber = Integer.parseInt((params.get("seat_number")).get(0));
                     predicateSeat = criteriaBuilder.greaterThanOrEqualTo(seatPath, minSeatNumber);
                     break;
-
                 case "fuelType":
                     List<Predicate> predicatesFuelType = new ArrayList<>();
                     Path<FuelType> fuelTypePath = car.get("fuelType");
@@ -81,7 +80,7 @@ public class CarRepositoryCustomImpl implements CarRepositoryCustom {
                     break;
                 case "bodyType":
                     List<Predicate> predicatesBodyType = new ArrayList<>();
-                    Path<FuelType> bodyTypePath = car.get("bodyType");
+                    Path<BodyType> bodyTypePath = car.get("bodyType");
                     for (String bodyType : params.get(param)) {
                         predicatesBodyType.add(criteriaBuilder.equal(bodyTypePath, BodyType.getTypeByName(bodyType)));
                         predicateBodyType = criteriaBuilder.or(predicatesBodyType.toArray(new Predicate[predicatesBodyType.size()]));
@@ -89,7 +88,7 @@ public class CarRepositoryCustomImpl implements CarRepositoryCustom {
                     break;
                 case "carType":
                     List<Predicate> predicatesCarType = new ArrayList<>();
-                    Path<FuelType> carTypePath = car.get("carType");
+                    Path<CarType> carTypePath = car.get("carType");
                     for (String carType : params.get(param)) {
                         predicatesCarType.add(criteriaBuilder.equal(carTypePath, CarType.getTypeByName(carType)));
                         predicateCarType = criteriaBuilder.or(predicatesCarType.toArray(new Predicate[predicatesCarType.size()]));
