@@ -24,4 +24,4 @@ https://github.com/NorbertRuff/share-n-drive-frontend
 
 **Client:** React
 
-**Server:** JAVA Spring, PostgresSQL
+**Server:** JAVA Spring, PostgreSQL
