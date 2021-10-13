@@ -19,8 +19,6 @@ public class CarRepositoryCustomImpl implements CarRepositoryCustom {
 
     @Override
     public List<Car> findCarsByCriteria(Map<String, List<String>> params) {
-        List<String> acceptedCriteria = new ArrayList<>(List.of("brand", "color", "fuelType", "doors",
-            "bodyType", "carType", "transmission"));
         List<Predicate> allPredicates = new ArrayList<>();
 
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -28,14 +26,12 @@ public class CarRepositoryCustomImpl implements CarRepositoryCustom {
         Root<Car> car = criteriaQuery.from(Car.class);
 
         for(String category : params.keySet()){
-            if(acceptedCriteria.contains(category)){
                 List<Predicate> tempPredicates = new ArrayList<>();
                 for(String value : params.get(category)){
                     tempPredicates.add(criteriaBuilder.equal(car.get(category), value));
                 }
                 allPredicates.add(criteriaBuilder.or(tempPredicates.toArray(new Predicate[0])));
             }
-        }
         Predicate finalPredicate
             = criteriaBuilder.and(allPredicates.toArray(new Predicate[0]));
         criteriaQuery.where(finalPredicate);

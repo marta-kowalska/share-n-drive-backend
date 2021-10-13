@@ -16,6 +16,9 @@ import java.util.stream.Collectors;
 @Component
 public class CarService {
 
+    private static final List<String> FILTER_CRITERIA = new ArrayList<>(List.of("brand", "color", "fuelType",
+        "doors", "bodyType", "carType", "transmission"));
+
     private final CarRepository carRepository;
     private final BookingsRepository bookingsRepository;
     private final CustomerRepository customerRepository;
@@ -32,19 +35,20 @@ public class CarService {
     }
 
     public List<Car> getFilteredCars(Map<String, String> params) {
-        Map<String, List<String>> checkedParams = getUniqueParams(params);
+        Map<String, List<String>> checkedParams = getCheckedParams(params);
         List<Car> carsByCriteria = carRepository.findCarsByCriteria(checkedParams);
-        if (checkedParams.containsKey("rentFrom")) {
-            List<Car> carsByDate = filterByDate(checkedParams);
+        checkFromToParams(params);
+        if (params.containsKey("rentFrom")) {
+            List<Car> carsByDate = filterByDate(params);
             carsByCriteria.addAll(carsByDate);
             carsByCriteria = getCommonElements(carsByCriteria);
         }
-        return filterByCustomer(checkedParams.get("customerId").get(0), carsByCriteria);
+        return filterByCustomer(params.get("customerId"), carsByCriteria);
     }
 
-    private List<Car> filterByDate(Map<String, List<String>> params) {
-        LocalDate from = LocalDate.parse(params.get("rentFrom").get(0));
-        LocalDate to = LocalDate.parse(params.get("rentTo").get(0));
+    private List<Car> filterByDate(Map<String, String> params) {
+        LocalDate from = LocalDate.parse(params.get("rentFrom"));
+        LocalDate to = LocalDate.parse(params.get("rentTo"));
         return bookingsRepository.getCarsByDates(from, to);
     }
 
@@ -64,19 +68,20 @@ public class CarService {
         return car.getPrice() * days;
     }
 
-    private Map<String, List<String>> getUniqueParams(Map<String, String> params) {
+    private Map<String, List<String>> getCheckedParams(Map<String, String> params) {
         Map<String, List<String>> checkedParams = new HashMap<>();
         for (String param : params.keySet()) {
+            if(FILTER_CRITERIA.contains(param)){
             List<String> values = Arrays.stream(params.get(param).split(","))
                 .distinct()
                 .collect(Collectors.toList());
             checkedParams.put(param, values);
+            }
         }
-        checkFromToParams(checkedParams);
         return checkedParams;
     }
 
-    private void checkFromToParams(Map<String, List<String>> checkedParams) {
+    private void checkFromToParams(Map<String, String> checkedParams) {
         if (checkedParams.containsKey("rentFrom") && !checkedParams.containsKey("rentTo")) {
             checkedParams.remove("rentFrom");
         }
